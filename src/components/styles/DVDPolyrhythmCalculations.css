@@ -1,0 +1,117 @@
+/*h1 {
+    font-family: "Sixtyfour Convergence";
+    text-align: center;
+    display: block;
+    margin: 10px auto;
+}
+
+.title {
+    display: block;
+    color: white;
+    background-color: dodgerblue;
+    padding: 10px;
+    font-family: "Arial";
+    text-align: "center";
+    margin: 10px auto;
+}
+
+p {
+    text-align: center;
+    align-items: center;
+    display: block;
+    margin: 1vh auto;
+    max-width: 90vw;
+}
+
+canvas {
+    border: 3px hidden;
+    display: flex;
+    margin: 0 auto;
+    background-color: rgb(243, 243, 243);
+    max-width: 80vw;
+    max-height: 60vh;
+    min-width: 10vw;
+}
+
+.colon {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.directions {
+    display: block;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    margin: 10px auto 0 auto;
+    font-size: 12px;
+    font-weight: 100;
+    width: 300px;
+}
+
+.counters {
+    margin-top: 10px;
+    font-size: 32px;
+
+    div > p {
+        display: inline;
+    }
+
+    .ratio {
+        display: inline;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .polyrhythm {
+        width: 50px;
+        height: 50px;
+        padding: auto;
+        text-align: center;
+        font-size: 36px;
+        margin: 10px;
+    }
+}
+
+
+.polyrhythm-data {
+    margin-left: 1vw
+}
+
+.poly-value {
+    width: 200px;
+    margin: 1vh 1vw;
+}
+
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calculate {
+    display: block;
+    margin: 10px auto;
+    width: 30vw;
+    height: 5vh;
+    font-size: large;
+}
+
+.pausePlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.UI {
+    width: 100px;
+    margin: 10px 10px;
+}
+*/

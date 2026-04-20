@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+    /* Category 1: Visualization Palette */
+    /* Metronome palette */
+    --color-metro-primary: #FFF0EB;
+    --color-metro-secondary: #B7D1DA;
+    --color-metro-accent: #596475;
+    --color-metro-dark: #1F2232;
+    --color-metro-beat-inactive: #B7D1DA;
+    --color-metro-beat-active: #596475;
+    --color-metro-beat-accent: #1F2232;
+
+    --color-seashell-50: #ffece5;
+    --color-seashell-100: #ffd9cc;
+    --color-seashell-200: #ffb399;
+    --color-seashell-300: #ff8c66;
+    --color-seashell-400: #ff6633;
+    --color-seashell-500: #ff4000;
+    --color-seashell-600: #cc3300;
+    --color-seashell-700: #992600;
+    --color-seashell-800: #661a00;
+    --color-seashell-900: #330d00;
+    --color-seashell-950: #240900;
+
+    --color-pale-sky-50: #eef4f6;
+    --color-pale-sky-100: #ddeaee;
+    --color-pale-sky-200: #bcd4dc;
+    --color-pale-sky-300: #9abfcb;
+    --color-pale-sky-400: #78a9ba;
+    --color-pale-sky-500: #5794a8;
+    --color-pale-sky-600: #457687;
+    --color-pale-sky-700: #345965;
+    --color-pale-sky-800: #233b43;
+    --color-pale-sky-900: #111e22;
+    --color-pale-sky-950: #0c1518;
+
+    --color-blue-slate-50: #f0f2f4;
+    --color-blue-slate-100: #e2e5e9;
+    --color-blue-slate-200: #c5cbd3;
+    --color-blue-slate-300: #a8b0bd;
+    --color-blue-slate-400: #8b96a7;
+    --color-blue-slate-500: #6e7c91;
+    --color-blue-slate-600: #586374;
+    --color-blue-slate-700: #424a57;
+    --color-blue-slate-800: #2c323a;
+    --color-blue-slate-900: #16191d;
+    --color-blue-slate-950: #0f1114;
+
+    --color-shadow-grey-50: #eff0f5;
+    --color-shadow-grey-100: #e0e1eb;
+    --color-shadow-grey-200: #c0c4d8;
+    --color-shadow-grey-300: #a1a6c4;
+    --color-shadow-grey-400: #8289b0;
+    --color-shadow-grey-500: #626b9d;
+    --color-shadow-grey-600: #4f567d;
+    --color-shadow-grey-700: #3b405e;
+    --color-shadow-grey-800: #272b3f;
+    --color-shadow-grey-900: #14151f;
+    --color-shadow-grey-950: #0e0f16;
+
+    /* Category 2: Games Palette */
+    /* Drum Machine palette */
+    --color-drum-white: #ffffff;
+
+    --color-drum-slate-100: #f1f5f9;
+    --color-drum-slate-200: #e2e8f0;
+    --color-drum-slate-300: #cbd5e1;
+    --color-drum-slate-400: #94a3b8;
+    --color-drum-slate-500: #64748b;
+    --color-drum-slate-600: #475569;
+    --color-drum-slate-700: #334155;
+    --color-drum-slate-800: #1e293b;
+    --color-drum-slate-900: #0f172a;
+    --color-drum-slate-950: #020617;
+
+    --color-drum-slate-800-80: rgba(30, 41, 59, 0.8);
+    --color-drum-slate-800-90: rgba(30, 41, 59, 0.9);
+    --color-drum-slate-900-90: rgba(15, 23, 42, 0.9);
+    --color-drum-slate-900-95: rgba(15, 23, 42, 0.95);
+    --color-drum-slate-950-40: rgba(2, 6, 23, 0.4);
+    --color-drum-slate-950-90: rgba(2, 6, 23, 0.9);
+
+    --color-drum-emerald-200: #a7f3d0;
+    --color-drum-emerald-300: #6ee7b7;
+    --color-drum-emerald-400: #34d399;
+    --color-drum-emerald-500: #10b981;
+    --color-drum-emerald-500-15: rgba(16, 185, 129, 0.15);
+    --color-drum-emerald-500-80: rgba(16, 185, 129, 0.8);
+
+    --color-drum-current-step-ring: rgba(52, 211, 153, 0.45);
+
+    /* Category 3: Education Palette */
+    --color-porcelain-50: #f5f5f0;
+    --color-porcelain-100: #ebebe0;
+    --color-porcelain-200: #d6d6c2;
+    --color-porcelain-300: #c2c2a3;
+    --color-porcelain-400: #adad85;
+    --color-porcelain-500: #999966;
+    --color-porcelain-600: #7a7a52;
+    --color-porcelain-700: #5c5c3d;
+    --color-porcelain-800: #3d3d29;
+    --color-porcelain-900: #1f1f14;
+    --color-porcelain-950: #15150e;
+
+    --color-bone-50: #f7f3ed;
+    --color-bone-100: #f0e8db;
+    --color-bone-200: #e1d0b7;
+    --color-bone-300: #d2b993;
+    --color-bone-400: #c3a16f;
+    --color-bone-500: #b48a4b;
+    --color-bone-600: #906e3c;
+    --color-bone-700: #6c532d;
+    --color-bone-800: #48371e;
+    --color-bone-900: #241c0f;
+    --color-bone-950: #19130b;
+
+    --color-khaki-beige-50: #f6f2ee;
+    --color-khaki-beige-100: #ede5de;
+    --color-khaki-beige-200: #dccbbc;
+    --color-khaki-beige-300: #cab29b;
+    --color-khaki-beige-400: #b99879;
+    --color-khaki-beige-500: #a77e58;
+    --color-khaki-beige-600: #866546;
+    --color-khaki-beige-700: #644c35;
+    --color-khaki-beige-800: #433223;
+    --color-khaki-beige-900: #211912;
+    --color-khaki-beige-950: #17120c;
+
+    --color-jungle-teal-50: #f0f5f2;
+    --color-jungle-teal-100: #e1eae4;
+    --color-jungle-teal-200: #c3d5ca;
+    --color-jungle-teal-300: #a5c0af;
+    --color-jungle-teal-400: #87ab94;
+    --color-jungle-teal-500: #699679;
+    --color-jungle-teal-600: #547861;
+    --color-jungle-teal-700: #3f5a49;
+    --color-jungle-teal-800: #2a3c31;
+    --color-jungle-teal-900: #151e18;
+    --color-jungle-teal-950: #0f1511;
+
+    /* Shared global tokens */
+    --color-mint-500: oklch(0.72 0.11 178);
+    --color-muted-sage-green: #8aa624;
+    --color-gray-50: oklch(0.984 0.003 247.858);
+    --font-gotu: "Gotu", sans-serif;
+}
+
+@layer components {
+
+    .nav-link {
+        padding: 0.375rem;
+        border-radius: 0.375rem;
+
+        /*        color: var(--color-white);*/
+        &:hover {
+            transition: all 0.2s;
+            transition-timing-function: var(--ease-in-out);
+            border: 1px solid;
+            box-shadow: var(--shadow-md);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        &:not(:hover) {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 #0000;
+        }
+
+        &:active {
+            transition: all 0s ease-in;
+            box-shadow: 0 0 #0000;
+        }
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+/*    #osmdCanvasPage1 {
+
+        position:absolute;
+        border-top: 3px solid var(--color-mint-500);
+        padding: 1rem;
+    }*/
+
+
+    #osmdSvgPage1 {
+        width: 100%;
+        border: 3px solid var(--color-mint-500);
+        margin: 0rem;
+    }
+    
+}
+
+/*body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+*/

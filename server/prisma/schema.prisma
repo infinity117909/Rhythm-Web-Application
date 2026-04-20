@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model Topic {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  era         String?
+  region      String?
+
+  lessons     Lesson[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lesson {
+  id          Int       @id @default(autoincrement())
+  title       String
+  summary     String?
+  difficulty  Difficulty
+  orderIndex  Int
+
+  topic       Topic     @relation(fields: [topicId], references: [id])
+  topicId     Int
+
+  sections    Section[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Section {
+  id          Int         @id @default(autoincrement())
+  title       String
+  contentType ContentType
+  bodyText    String?
+  orderIndex  Int
+
+  lesson      Lesson      @relation(fields: [lessonId], references: [id])
+  lessonId    Int
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum Difficulty {
+  beginner
+  intermediate
+  advanced
+}
+
+enum ContentType {
+  text
+  audio
+  video
+}

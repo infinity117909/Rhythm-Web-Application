@@ -1,0 +1,51 @@
+Drum Machine Pipeline and Process
+
+Overview:
+This file describes how the drum machine in src/drum-machine operates from instrument selection through audio playback.
+
+1. Instrument Definitions
+- The drum instruments are defined in sampleMap.ts.
+- Each instrument has a unique key, a sample file name, and a display name.
+- sampleMap.ts constructs instrumentList and an optional sampleFiles record used by Tone.js.
+
+2. Selection and Presets
+- DrumMachine.tsx renders the selection page first when the user has not yet started.
+- The user may choose individual instruments or select a preset kit.
+- Presets are defined in drumKitPresets and contain instrument key arrays.
+- When a new preset is chosen, the component replaces the selectedInstrumentKeys array with the preset keys, clears the old pattern, and resets mute/volume state.
+
+3. State Management
+- The component tracks measures, subdivisions, tempo, BPM, playback state, and grid pattern state.
+- It uses React hooks such as useState, useMemo, and useEffect for derived state and side effects.
+- A pattern is represented as a 2D boolean array: [instrumentRow][stepIndex].
+- totalSteps is computed as measures * subdivisions, and the pattern is resized as needed.
+
+4. Audio Loading
+- loadPlayers() creates a Tone.Players instance from the currently selected sample files.
+- Players are loaded from the /drums/ base URL and disposed when selections change.
+- Audio unlock is handled explicitly by calling Tone.start() when the user enables audio.
+
+5. Playback Scheduling
+- Playback is driven by Tone.Transport.scheduleRepeat.
+- The transport uses the effective BPM, modified by tempo mode (half, normal, double).
+- Each measure equals four quarter notes, and subdivisions divide a measure into equal steps.
+- On each transport tick, the component calculates the current step and triggers samples for active cells.
+- Current step highlighting updates via React state.
+
+6. Grid and UI
+- The pattern grid is rendered as one row per selected instrument and one group per measure.
+- Each cell is a toggle button that updates the pattern state.
+- Scroll synchronization keeps all instrument rows aligned horizontally.
+- The page includes range sliders and numeric inputs for measures, subdivisions, and tempo.
+- Numeric inputs clear on focus and clamp on blur or Enter.
+
+7. Instrument Playback Behavior
+- Mute and volume states are tracked per instrument key.
+- Player.volume is updated when mute or volume changes.
+- Open hi-hat samples are explicitly stopped at the end of their step duration.
+
+8. Build and Debug Logging
+- DrumMachine.tsx includes console logging for preset selection, instrument effects, player loading, playback scheduling, and transport ticks.
+- These logs help trace runtime behavior during development.
+
+This document is intended as a guide for developers working in the drum-machine folder.
