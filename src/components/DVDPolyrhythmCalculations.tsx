@@ -356,10 +356,10 @@ export const PolyrhythmCanvas: React.FC = () => {
    // Render
    // -----------------------------
    return (
-      <div className="w-full text-metro-primary">
+      <div className="w-full text-azure-mist-50">
          <div className="mx-auto w-full max-w-[44rem]">
             <button
-               className="mb-3 rounded-lg border border-metro-secondary px-3 py-1.5 text-sm font-semibold bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark transition-colors"
+               className="mb-3 rounded-lg border border-pale-sky-300 px-3 py-1.5 text-sm font-semibold bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900 transition-colors"
                onClick={ async () => {
                   await Tone.start();
                   startAnimation(xpoly, ypoly);
@@ -372,13 +372,13 @@ export const PolyrhythmCanvas: React.FC = () => {
                ref={ canvasRef }
                width={ 500 }
                height={ 500 }
-               className="mx-auto block w-full rounded-xl border-2 border-metro-secondary bg-metro-primary shadow"
+               className="mx-auto block w-full rounded-xl border-2 border-pale-sky-300 bg-azure-mist-50 shadow"
             />
 
             {/* Controls */ }
-            <div className="mt-4 w-full rounded-xl border border-metro-accent bg-metro-secondary/25 p-4">
+            <div className="mt-4 w-full rounded-xl border border-blue-slate-600 bg-pale-sky-300/25 p-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-               <label className="text-sm font-semibold text-metro-secondary">
+               <label className="text-sm font-semibold text-pale-sky-300">
                   BPM
                   <input
                      type="range"
@@ -386,12 +386,12 @@ export const PolyrhythmCanvas: React.FC = () => {
                      max={ 100 }
                      value={ bpm }
                      onChange={ (e) => setBpm(Number(e.target.value)) }
-                     className="mt-2 w-full accent-metro-accent"
+                     className="mt-2 w-full accent-blue-slate-600"
                   />
-                  <span className="ml-2 text-metro-primary">{ bpm } BPM</span>
+                  <span className="ml-2 text-azure-mist-50">{ bpm } BPM</span>
                </label>
 
-               <label className="text-sm font-semibold text-metro-secondary">
+               <label className="text-sm font-semibold text-pale-sky-300">
                   Speed
                   <input
                      type="range"
@@ -399,42 +399,42 @@ export const PolyrhythmCanvas: React.FC = () => {
                      max={ 1000 }
                      value={ speed }
                      onChange={ (e) => setSpeed(Number(e.target.value)) }
-                     className="mt-2 w-full accent-metro-accent"
+                     className="mt-2 w-full accent-blue-slate-600"
                   />
-                  <span className="ml-2 text-metro-primary">{ speed }%</span>
+                  <span className="ml-2 text-azure-mist-50">{ speed }%</span>
                </label>
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-4">
                <button
-                  className="rounded-lg border border-metro-secondary px-3 py-1.5 text-sm font-semibold bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark transition-colors"
+                  className="rounded-lg border border-pale-sky-300 px-3 py-1.5 text-sm font-semibold bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900 transition-colors"
                   onClick={ () => startAnimation(xpoly, ypoly) }
                >
                   Update
                </button>
 
-               <label className="inline-flex items-center gap-2 text-sm text-metro-primary">
+               <label className="inline-flex items-center gap-2 text-sm text-azure-mist-50">
                   <input
                      type="checkbox"
                      checked={ showGrid }
                      onChange={ (e) => setShowGrid(e.target.checked) }
-                     className="accent-metro-accent"
+                     className="accent-blue-slate-600"
                   />
                   Show Grid
                </label>
 
-               <label className="inline-flex items-center gap-2 text-sm text-metro-primary">
+               <label className="inline-flex items-center gap-2 text-sm text-azure-mist-50">
                   <input
                      type="checkbox"
                      checked={ showTrace }
                      onChange={ (e) => setShowTrace(e.target.checked) }
-                     className="accent-metro-accent"
+                     className="accent-blue-slate-600"
                   />
                   Show Trace
                </label>
 
                <button
-                  className="rounded-lg border border-metro-secondary px-3 py-1.5 text-sm font-semibold bg-metro-dark text-metro-primary hover:bg-metro-secondary hover:text-metro-dark transition-colors"
+                  className="rounded-lg border border-pale-sky-300 px-3 py-1.5 text-sm font-semibold bg-shadow-grey-900 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900 transition-colors"
                   onClick={ () => {
                      if (!animationRef.current) return;
                      if (animationRef.current.playState === "running") {
@@ -449,30 +449,30 @@ export const PolyrhythmCanvas: React.FC = () => {
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
-               <div className="rounded-lg border border-metro-secondary bg-metro-dark/80 p-3">
-                  <label className="text-sm font-semibold text-metro-secondary">
+               <div className="rounded-lg border border-pale-sky-300 bg-shadow-grey-900/80 p-3">
+                  <label className="text-sm font-semibold text-pale-sky-300">
                      X Poly
                      <input
                         type="number"
                         value={ xpoly }
                         onChange={ (e) => setXpoly(Number(e.target.value)) }
-                        className="ml-2 w-20 rounded border border-metro-secondary bg-metro-primary px-2 py-1 text-metro-dark"
+                        className="ml-2 w-20 rounded border border-pale-sky-300 bg-azure-mist-50 px-2 py-1 text-shadow-grey-900"
                      />
                   </label>
-                  <div className="mt-1 text-sm text-metro-primary">X Poly BPM: { xBPM }</div>
+                  <div className="mt-1 text-sm text-azure-mist-50">X Poly BPM: { xBPM }</div>
                </div>
 
-               <div className="rounded-lg border border-metro-secondary bg-metro-dark/80 p-3">
-                  <label className="text-sm font-semibold text-metro-secondary">
+               <div className="rounded-lg border border-pale-sky-300 bg-shadow-grey-900/80 p-3">
+                  <label className="text-sm font-semibold text-pale-sky-300">
                      Y Poly
                      <input
                         type="number"
                         value={ ypoly }
                         onChange={ (e) => setYpoly(Number(e.target.value)) }
-                        className="ml-2 w-20 rounded border border-metro-secondary bg-metro-primary px-2 py-1 text-metro-dark"
+                        className="ml-2 w-20 rounded border border-pale-sky-300 bg-azure-mist-50 px-2 py-1 text-shadow-grey-900"
                      />
                   </label>
-                  <div className="mt-1 text-sm text-metro-primary">Y Poly BPM: { yBPM }</div>
+                  <div className="mt-1 text-sm text-azure-mist-50">Y Poly BPM: { yBPM }</div>
                </div>
             </div>
             </div>

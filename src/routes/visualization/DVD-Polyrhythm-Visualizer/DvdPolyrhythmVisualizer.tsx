@@ -16,18 +16,18 @@ function RouteComponent() {
    
    return (
       <>
-         <div className="min-h-screen bg-metro-primary py-6 px-4 md:px-8">
+         <div className="min-h-screen bg-azure-mist-50 py-6 px-4 md:px-8">
             <div className="mx-auto max-w-6xl">
-               <div className="mb-4 rounded-xl border-2 border-metro-accent bg-metro-secondary/45 p-3 text-center text-metro-dark shadow-sm">
+               <div className="mb-4 rounded-xl border-2 border-blue-slate-600 bg-pale-sky-300/45 p-3 text-center text-shadow-grey-900 shadow-sm">
                   <strong>Route loaded:</strong> DVD Polyrhythm Visualizer
                </div>
-               <h1 className="text-3xl text-center mt-0 font-semibold font-gotu text-metro-dark tracking-wide">
+               <h1 className="text-3xl text-center mt-0 font-semibold font-gotu text-shadow-grey-900 tracking-wide">
                   Polyrhythm Visualizer
                </h1>
-               <p className="text-xl text-center text-metro-accent">
+               <p className="text-xl text-center text-blue-slate-600">
                   Polyrhythms are an extremely <em>mathematical</em> aspect of music
                </p>
-               <div className="mt-5 rounded-2xl border-2 border-metro-secondary bg-white/45 p-4 md:p-6 text-metro-dark">
+               <div className="mt-5 rounded-2xl border-2 border-pale-sky-300 bg-white/45 p-4 md:p-6 text-shadow-grey-900">
                   <dt className="text-lg">The <b className="font-semibold">polyrhythm</b>: </dt>
                   <dd className="indent-8 mt-1">This is when one rhythm is played over another rhythm (which can be played over even more layers of rhythms) simultaneously!</dd>
                   <br />
@@ -41,8 +41,8 @@ function RouteComponent() {
 
                      <label>
                         
-                        <details className="rounded-lg border border-metro-secondary bg-metro-primary/70 px-4 py-3">
-                           <summary className="cursor-pointer font-semibold text-metro-accent">Click to see more</summary>
+                        <details className="rounded-lg border border-pale-sky-300 bg-azure-mist-50/70 px-4 py-3">
+                           <summary className="cursor-pointer font-semibold text-blue-slate-600">Click to see more</summary>
                            <p>
                               Polyrhythms are, at its core, ratios. When writing a ratio, you can write them as their conventional form by using a colon
                               ( x <sub><span className="text-xl">&#8758;</span></sub> y )
@@ -64,7 +64,7 @@ function RouteComponent() {
                         </details>
                      </label>
                   </section>
-               <div className="mt-6 mx-auto w-full max-w-5xl rounded-2xl border-2 border-metro-accent bg-metro-dark/95 p-3 md:p-4">
+               <div className="mt-6 mx-auto w-full max-w-5xl rounded-2xl border-2 border-blue-slate-600 bg-shadow-grey-900/95 p-3 md:p-4">
                   <PolyrhythmCanvas />
                </div>
                </div>

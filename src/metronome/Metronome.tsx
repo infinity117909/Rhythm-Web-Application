@@ -18,16 +18,16 @@ function BlockBeatVisualizer({ beats, currentBeat, label, compact = false }: Vis
 
   return (
     <div className="flex flex-col items-center gap-4 w-full justify-center">
-      <h2 className="text-xl font-semibold text-metro-dark tracking-wide">{label}</h2>
+      <h2 className="text-xl font-semibold text-shadow-grey-900 tracking-wide">{label}</h2>
       <div className="flex flex-row gap-3 items-center justify-center flex-wrap">
         {Array.from({ length: beats }, (_, i) => {
           const isActive = currentBeat === i
           const isAccent = i === 0
 
-          let bgClass = 'bg-metro-beat-inactive'
-          if (isActive && isAccent) bgClass = 'bg-metro-beat-accent'
-          else if (isActive) bgClass = 'bg-metro-beat-active'
-          else if (isAccent) bgClass = 'bg-metro-secondary border-2 border-metro-accent'
+          let bgClass = 'bg-pale-sky-300'
+          if (isActive && isAccent) bgClass = 'bg-shadow-grey-900'
+          else if (isActive) bgClass = 'bg-blue-slate-600'
+          else if (isAccent) bgClass = 'bg-pale-sky-300 border-2 border-blue-slate-600'
 
           return (
             <div
@@ -40,7 +40,7 @@ function BlockBeatVisualizer({ beats, currentBeat, label, compact = false }: Vis
               `}
               style={{ width, height }}
             >
-              <span className={`text-2xl font-bold ${isActive ? 'text-metro-primary' : 'text-metro-dark'}`}>
+              <span className={`text-2xl font-bold ${isActive ? 'text-azure-mist-50' : 'text-shadow-grey-900'}`}>
                 {i + 1}
               </span>
             </div>
@@ -69,14 +69,14 @@ function PulseVisualizer({ beats, currentBeat, isPlaying, label, compact = false
 
   return (
     <div className="flex flex-col items-center gap-4 w-full justify-center">
-      <h2 className="text-xl font-semibold text-metro-dark tracking-wide">{label}</h2>
+      <h2 className="text-xl font-semibold text-shadow-grey-900 tracking-wide">{label}</h2>
       <div className="flex gap-3 mb-2">
         {Array.from({ length: beats }, (_, i) => (
           <div
             key={i}
             className={`
               w-4 h-4 rounded-full transition-all duration-75
-              ${currentBeat === i ? 'bg-metro-dark scale-125' : 'bg-metro-secondary'}
+              ${currentBeat === i ? 'bg-shadow-grey-900 scale-125' : 'bg-pale-sky-300'}
             `}
           />
         ))}
@@ -87,13 +87,13 @@ function PulseVisualizer({ beats, currentBeat, isPlaying, label, compact = false
           transition-all duration-75
           ${pulse
             ? isAccent
-              ? 'bg-metro-dark scale-110'
-              : 'bg-metro-accent scale-105'
-            : 'bg-metro-secondary scale-100'}
+              ? 'bg-shadow-grey-900 scale-110'
+              : 'bg-blue-slate-600 scale-105'
+            : 'bg-pale-sky-300 scale-100'}
         `}
         style={{ width: circleSize, height: circleSize }}
       >
-        <span className={`text-3xl font-bold ${pulse ? 'text-metro-primary' : 'text-metro-dark'}`}>
+        <span className={`text-3xl font-bold ${pulse ? 'text-azure-mist-50' : 'text-shadow-grey-900'}`}>
           {currentBeat >= 0 ? currentBeat + 1 : isPlaying ? '...' : '-'}
         </span>
       </div>
@@ -146,27 +146,33 @@ function PendulumVisualizer({ beats, currentBeat, isPlaying, label, compact = fa
 
   return (
     <div className="flex flex-col items-center gap-3 w-full justify-center">
-      <h2 className="text-xl font-semibold text-metro-dark tracking-wide">{label}</h2>
+      <h2 className="text-xl font-semibold text-shadow-grey-900 tracking-wide">{label}</h2>
       <div className="flex gap-3 mb-1">
         {Array.from({ length: beats }, (_, i) => (
           <div
             key={i}
             className={`
               w-3 h-3 rounded-full transition-all duration-75
-              ${currentBeat === i ? 'bg-metro-dark scale-125' : 'bg-metro-secondary'}
+              ${currentBeat === i ? 'bg-shadow-grey-900 scale-125' : 'bg-pale-sky-300'}
             `}
           />
         ))}
       </div>
       <svg viewBox="-80 0 160 200" className={compact ? 'w-36 h-48' : 'w-48 h-64'} style={{ overflow: 'visible' }}>
-        <circle cx="0" cy="10" r="5" fill="#596475" />
+        <circle cx="0" cy="10" r="5" fill="var(--color-blue-slate-600)" />
         <g transform={`rotate(${angle}, 0, 10)`} style={{ transition: 'transform 50ms linear' }}>
-          <line x1="0" y1="10" x2="0" y2="160" stroke="#596475" strokeWidth="3" />
+          <line x1="0" y1="10" x2="0" y2="160" stroke="var(--color-blue-slate-600)" strokeWidth="3" />
           <circle
             cx="0"
             cy="168"
             r="22"
-            fill={isAccent && currentBeat >= 0 ? '#1F2232' : currentBeat >= 0 ? '#596475' : '#B7D1DA'}
+            fill={
+              isAccent && currentBeat >= 0
+                ? 'var(--color-shadow-grey-900)'
+                : currentBeat >= 0
+                  ? 'var(--color-blue-slate-600)'
+                  : 'var(--color-pale-sky-300)'
+            }
             className="transition-colors duration-75"
           />
           <text
@@ -174,7 +180,7 @@ function PendulumVisualizer({ beats, currentBeat, isPlaying, label, compact = fa
             y="168"
             textAnchor="middle"
             dominantBaseline="central"
-            fill="#FFF0EB"
+            fill="var(--color-azure-mist-50)"
             fontSize="16"
             fontWeight="bold"
           >
@@ -225,7 +231,7 @@ function CenterVisualizer() {
       })}
 
       {isPolyrhythmEnabled && (
-        <div className="w-full border-t-2 border-metro-secondary/60 pt-4">
+        <div className="w-full border-t-2 border-pale-sky-300/60 pt-4">
           {renderVisualizer(metronomeType, {
             beats: polyrhythmValue,
             currentBeat: currentPolyBeat,
@@ -255,7 +261,7 @@ function BpmControl() {
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <label className="text-xs uppercase tracking-widest text-metro-accent font-semibold">BPM</label>
+      <label className="text-xs uppercase tracking-widest text-blue-slate-600 font-semibold">BPM</label>
       {editing ? (
         <input
           autoFocus
@@ -266,7 +272,7 @@ function BpmControl() {
           onChange={(e) => setDraft(e.target.value)}
           onBlur={commit}
           onKeyDown={(e) => e.key === 'Enter' && commit()}
-          className="w-24 text-center text-metro-dark bg-metro-primary border-2 border-metro-accent rounded-lg p-1 text-lg font-bold focus:outline-none"
+          className="w-24 text-center text-shadow-grey-900 bg-azure-mist-50 border-2 border-blue-slate-600 rounded-lg p-1 text-lg font-bold focus:outline-none"
         />
       ) : (
         <button
@@ -274,7 +280,7 @@ function BpmControl() {
             setDraft(String(bpm))
             setEditing(true)
           }}
-          className="w-24 text-center text-metro-dark bg-metro-primary border-2 border-metro-secondary hover:border-metro-accent rounded-lg p-1 text-lg font-bold transition-colors"
+          className="w-24 text-center text-shadow-grey-900 bg-azure-mist-50 border-2 border-pale-sky-300 hover:border-blue-slate-600 rounded-lg p-1 text-lg font-bold transition-colors"
           title="Click to edit BPM"
         >
           {bpm}
@@ -283,25 +289,25 @@ function BpmControl() {
       <div className="flex gap-1 mt-1">
         <button
           onClick={() => setBpm(bpm - 5)}
-          className="px-2 py-0.5 text-sm rounded bg-metro-secondary hover:bg-metro-accent hover:text-metro-primary text-metro-dark transition-colors"
+          className="px-2 py-0.5 text-sm rounded bg-pale-sky-300 hover:bg-blue-slate-600 hover:text-azure-mist-50 text-shadow-grey-900 transition-colors"
         >
           -5
         </button>
         <button
           onClick={() => setBpm(bpm - 1)}
-          className="px-2 py-0.5 text-sm rounded bg-metro-secondary hover:bg-metro-accent hover:text-metro-primary text-metro-dark transition-colors"
+          className="px-2 py-0.5 text-sm rounded bg-pale-sky-300 hover:bg-blue-slate-600 hover:text-azure-mist-50 text-shadow-grey-900 transition-colors"
         >
           -1
         </button>
         <button
           onClick={() => setBpm(bpm + 1)}
-          className="px-2 py-0.5 text-sm rounded bg-metro-secondary hover:bg-metro-accent hover:text-metro-primary text-metro-dark transition-colors"
+          className="px-2 py-0.5 text-sm rounded bg-pale-sky-300 hover:bg-blue-slate-600 hover:text-azure-mist-50 text-shadow-grey-900 transition-colors"
         >
           +1
         </button>
         <button
           onClick={() => setBpm(bpm + 5)}
-          className="px-2 py-0.5 text-sm rounded bg-metro-secondary hover:bg-metro-accent hover:text-metro-primary text-metro-dark transition-colors"
+          className="px-2 py-0.5 text-sm rounded bg-pale-sky-300 hover:bg-blue-slate-600 hover:text-azure-mist-50 text-shadow-grey-900 transition-colors"
         >
           +5
         </button>
@@ -354,7 +360,7 @@ function TimeSigControl() {
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <label className="text-xs uppercase tracking-widest text-metro-accent font-semibold">Time Sig</label>
+      <label className="text-xs uppercase tracking-widest text-blue-slate-600 font-semibold">Time Sig</label>
       <div className="flex items-center gap-1">
         <input
           type="number"
@@ -364,10 +370,10 @@ function TimeSigControl() {
           onChange={(e) => setBeatsDraft(e.target.value)}
           onBlur={commit}
           onKeyDown={(e) => e.key === 'Enter' && commit()}
-          className="w-16 text-center text-metro-dark bg-metro-primary border-2 border-metro-secondary hover:border-metro-accent rounded-lg p-1 text-lg font-bold transition-colors"
+          className="w-16 text-center text-shadow-grey-900 bg-azure-mist-50 border-2 border-pale-sky-300 hover:border-blue-slate-600 rounded-lg p-1 text-lg font-bold transition-colors"
           aria-label="Time signature numerator"
         />
-        <span className="text-lg font-bold text-metro-primary">/</span>
+        <span className="text-lg font-bold text-azure-mist-50">/</span>
         <input
           type="number"
           min={1}
@@ -376,11 +382,11 @@ function TimeSigControl() {
           onChange={(e) => setNoteValueDraft(e.target.value)}
           onBlur={commit}
           onKeyDown={(e) => e.key === 'Enter' && commit()}
-          className="w-16 text-center text-metro-dark bg-metro-primary border-2 border-metro-secondary hover:border-metro-accent rounded-lg p-1 text-lg font-bold transition-colors"
+          className="w-16 text-center text-shadow-grey-900 bg-azure-mist-50 border-2 border-pale-sky-300 hover:border-blue-slate-600 rounded-lg p-1 text-lg font-bold transition-colors"
           aria-label="Time signature denominator"
         />
       </div>
-      <p className="text-[10px] text-metro-secondary text-center leading-tight max-w-36">
+      <p className="text-[10px] text-pale-sky-300 text-center leading-tight max-w-36">
         #{timeSignature.noteValue}: {timeSignature.noteValue} beats per measure or one {tupletLabel}
       </p>
     </div>
@@ -408,15 +414,15 @@ function ControlsPanel() {
   } = useMetronome()
 
   return (
-    <aside className="flex flex-col gap-5 h-full rounded-2xl bg-metro-dark p-5 text-metro-primary">
-      <h2 className="text-center text-lg font-semibold tracking-wide border-b border-metro-accent pb-2">Controls</h2>
+    <aside className="flex flex-col gap-5 h-full rounded-2xl bg-shadow-grey-900 p-5 text-azure-mist-50">
+      <h2 className="text-center text-lg font-semibold tracking-wide border-b border-blue-slate-600 pb-2">Controls</h2>
 
       <div className="flex flex-col items-center gap-2">
-        <span className="text-xs uppercase tracking-widest text-metro-secondary">Metronome Type</span>
+        <span className="text-xs uppercase tracking-widest text-pale-sky-300">Metronome Type</span>
         <div className="flex items-center gap-3">
           <button
             onClick={() => cycleType(-1)}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-metro-accent hover:bg-metro-secondary hover:text-metro-dark transition-colors text-lg"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-slate-600 hover:bg-pale-sky-300 hover:text-shadow-grey-900 transition-colors text-lg"
             aria-label="Previous metronome type"
           >
             {'<'}
@@ -424,7 +430,7 @@ function ControlsPanel() {
           <span className="text-sm font-medium w-24 text-center">{metronomeType}</span>
           <button
             onClick={() => cycleType(1)}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-metro-accent hover:bg-metro-secondary hover:text-metro-dark transition-colors text-lg"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-slate-600 hover:bg-pale-sky-300 hover:text-shadow-grey-900 transition-colors text-lg"
             aria-label="Next metronome type"
           >
             {'>'}
@@ -434,7 +440,7 @@ function ControlsPanel() {
           {METRONOME_TYPES.map((_type: string, i: number) => (
             <div
               key={i}
-              className={`w-2 h-2 rounded-full transition-colors ${i === metronomeTypeIndex ? 'bg-metro-primary' : 'bg-metro-accent'}`}
+              className={`w-2 h-2 rounded-full transition-colors ${i === metronomeTypeIndex ? 'bg-azure-mist-50' : 'bg-blue-slate-600'}`}
             />
           ))}
         </div>
@@ -445,26 +451,26 @@ function ControlsPanel() {
         <TimeSigControl />
       </div>
 
-      <div className="rounded-xl bg-metro-accent/30 border border-metro-accent p-3 text-sm text-metro-secondary leading-relaxed">
-        <p className="text-xs uppercase tracking-widest text-metro-secondary mb-2 font-semibold">Polyrhythm</p>
+      <div className="rounded-xl bg-blue-slate-600/30 border border-blue-slate-600 p-3 text-sm text-pale-sky-300 leading-relaxed">
+        <p className="text-xs uppercase tracking-widest text-pale-sky-300 mb-2 font-semibold">Polyrhythm</p>
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
             type="checkbox"
             checked={isPolyrhythmEnabled}
             onChange={(e) => setIsPolyrhythmEnabled(e.target.checked)}
-            className="h-4 w-4 rounded border-metro-secondary bg-metro-primary text-metro-dark"
+            className="h-4 w-4 rounded border-pale-sky-300 bg-azure-mist-50 text-shadow-grey-900"
           />
-          <span className="text-metro-primary">Enable polyrhythm visual</span>
+          <span className="text-azure-mist-50">Enable polyrhythm visual</span>
         </label>
 
         {isPolyrhythmEnabled && (
           <div className="mt-3 flex items-center gap-2">
-            <label htmlFor="polyrhythm-value" className="text-xs uppercase tracking-widest text-metro-secondary">Value</label>
+            <label htmlFor="polyrhythm-value" className="text-xs uppercase tracking-widest text-pale-sky-300">Value</label>
             <select
               id="polyrhythm-value"
               value={polyrhythmValue}
               onChange={(e) => setPolyrhythmValue(Number(e.target.value))}
-              className="ml-auto rounded-lg border border-metro-secondary bg-metro-primary px-3 py-1 text-metro-dark font-semibold"
+              className="ml-auto rounded-lg border border-pale-sky-300 bg-azure-mist-50 px-3 py-1 text-shadow-grey-900 font-semibold"
             >
               {[2, 3, 4, 5, 6].map((value) => (
                 <option key={value} value={value}>
@@ -476,24 +482,24 @@ function ControlsPanel() {
         )}
       </div>
 
-      <div className="flex-1 rounded-xl bg-metro-accent/30 border border-metro-accent p-3 text-sm text-metro-secondary leading-relaxed">
-        <p className="text-xs uppercase tracking-widest text-metro-secondary mb-2 font-semibold">Modifiers</p>
+      <div className="flex-1 rounded-xl bg-blue-slate-600/30 border border-blue-slate-600 p-3 text-sm text-pale-sky-300 leading-relaxed">
+        <p className="text-xs uppercase tracking-widest text-pale-sky-300 mb-2 font-semibold">Modifiers</p>
         <p>
-          BPM range: <span className="text-metro-primary font-medium">20 - 300</span>
+          BPM range: <span className="text-azure-mist-50 font-medium">20 - 300</span>
         </p>
         <p className="mt-1">
-          Beat 1 plays an <span className="text-metro-primary font-medium">accented</span> low tone.
-          All other beats play a <span className="text-metro-primary font-medium">softer</span> click.
+          Beat 1 plays an <span className="text-azure-mist-50 font-medium">accented</span> low tone.
+          All other beats play a <span className="text-azure-mist-50 font-medium">softer</span> click.
         </p>
         <p className="mt-1">
-          Switch between <span className="text-metro-primary font-medium">{METRONOME_TYPES.join(', ')}</span> visualizations using the arrows above.
+          Switch between <span className="text-azure-mist-50 font-medium">{METRONOME_TYPES.join(', ')}</span> visualizations using the arrows above.
         </p>
       </div>
 
       {!isAudioEnabled && (
         <button
           onClick={enableAudio}
-          className="w-full py-2 rounded-xl bg-metro-secondary text-metro-dark font-semibold text-sm hover:bg-metro-primary transition-colors"
+          className="w-full py-2 rounded-xl bg-pale-sky-300 text-shadow-grey-900 font-semibold text-sm hover:bg-azure-mist-50 transition-colors"
         >
           Enable Audio
         </button>
@@ -508,9 +514,9 @@ function ControlsPanel() {
               flex-1 py-2.5 rounded-xl font-semibold transition-colors text-sm
               ${isAudioEnabled
                 ? isPlaying
-                  ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark'
-                  : 'bg-metro-secondary text-metro-dark hover:bg-metro-primary'
-                : 'bg-metro-accent/30 text-metro-accent cursor-not-allowed'}
+                  ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900'
+                  : 'bg-pale-sky-300 text-shadow-grey-900 hover:bg-azure-mist-50'
+                : 'bg-blue-slate-600/30 text-blue-slate-600 cursor-not-allowed'}
             `}
           >
             {isPlaying ? '|| Pause' : '> Play'}
@@ -521,8 +527,8 @@ function ControlsPanel() {
             className={`
               flex-1 py-2.5 rounded-xl font-semibold transition-colors text-sm
               ${isAudioEnabled
-                ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark'
-                : 'bg-metro-accent/30 text-metro-accent cursor-not-allowed'}
+                ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900'
+                : 'bg-blue-slate-600/30 text-blue-slate-600 cursor-not-allowed'}
             `}
           >
             Restart
@@ -534,13 +540,13 @@ function ControlsPanel() {
           className={`
             w-full py-2.5 rounded-xl font-semibold transition-colors text-sm
             ${isAudioEnabled
-              ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark'
-              : 'bg-metro-accent/30 text-metro-accent cursor-not-allowed'}
+              ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900'
+              : 'bg-blue-slate-600/30 text-blue-slate-600 cursor-not-allowed'}
           `}
         >
           Stop
         </button>
-        {!isAudioEnabled && <p className="text-xs text-metro-accent text-center">Enable audio first</p>}
+        {!isAudioEnabled && <p className="text-xs text-blue-slate-600 text-center">Enable audio first</p>}
       </div>
     </aside>
   )
@@ -550,9 +556,9 @@ function ControlsPanel() {
 
 function InstructionsPanel() {
   return (
-    <aside className="flex flex-col gap-4 h-full rounded-2xl border-2 border-metro-secondary bg-metro-primary/60 p-5">
-      <h2 className="text-lg font-semibold text-metro-dark border-b border-metro-secondary pb-2">How to Use</h2>
-      <ol className="list-decimal list-inside space-y-3 text-sm text-metro-dark leading-relaxed">
+    <aside className="flex flex-col gap-4 h-full rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
+      <h2 className="text-lg font-semibold text-shadow-grey-900 border-b border-pale-sky-300 pb-2">How to Use</h2>
+      <ol className="list-decimal list-inside space-y-3 text-sm text-shadow-grey-900 leading-relaxed">
         <li>
           Click <strong>"Enable Audio"</strong> in the Controls panel to unlock your browser audio.
         </li>
@@ -567,7 +573,7 @@ function InstructionsPanel() {
           Press <strong>Play</strong> to start and <strong>Pause</strong> or <strong>Restart</strong> as needed.
         </li>
       </ol>
-      <div className="mt-auto rounded-xl bg-metro-secondary/40 p-3 text-xs text-metro-accent leading-relaxed">
+      <div className="mt-auto rounded-xl bg-pale-sky-300/40 p-3 text-xs text-blue-slate-600 leading-relaxed">
         <strong>Tip:</strong> Beat 1 of each row is accented to keep the downbeat obvious while practicing subdivisions.
       </div>
     </aside>
@@ -580,17 +586,17 @@ function MetronomePage() {
   const { timeSignature, isPlaying, currentBeat, isPolyrhythmEnabled, polyrhythmValue } = useMetronome()
 
   return (
-    <div className="min-h-screen bg-metro-primary flex flex-col font-gotu">
-      <header className="bg-metro-dark text-metro-primary py-4 px-8 shadow-lg">
+    <div className="min-h-screen bg-azure-mist-50 flex flex-col font-gotu">
+      <header className="bg-shadow-grey-900 text-azure-mist-50 py-4 px-8 shadow-lg">
         <h1 className="text-center text-2xl md:text-3xl font-semibold tracking-widest uppercase">Metronome</h1>
-        <p className="text-center text-xs text-metro-secondary tracking-wide mt-0.5">
+        <p className="text-center text-xs text-pale-sky-300 tracking-wide mt-0.5">
           {timeSignature.beats}/{timeSignature.noteValue}
           {isPolyrhythmEnabled ? ` + ${polyrhythmValue}/${timeSignature.noteValue}` : ''}
           {' · '}
           {isPlaying ? (
-            <span className="text-metro-primary">Beat {currentBeat >= 0 ? currentBeat + 1 : '-'} of {timeSignature.beats}</span>
+            <span className="text-azure-mist-50">Beat {currentBeat >= 0 ? currentBeat + 1 : '-'} of {timeSignature.beats}</span>
           ) : (
-            <span className="text-metro-accent">Stopped</span>
+            <span className="text-blue-slate-600">Stopped</span>
           )}
         </p>
       </header>
@@ -598,7 +604,7 @@ function MetronomePage() {
       <main className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-4 p-4 md:p-6 max-w-7xl mx-auto w-full">
         <InstructionsPanel />
 
-        <section className="rounded-2xl border-2 border-metro-secondary bg-white/40 flex items-center justify-center min-h-[22rem] p-6">
+        <section className="rounded-2xl border-2 border-pale-sky-300 bg-white/40 flex items-center justify-center min-h-[22rem] p-6">
           <CenterVisualizer />
         </section>
 
