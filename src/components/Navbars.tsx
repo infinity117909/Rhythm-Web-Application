@@ -201,7 +201,7 @@ export const GameNavbar = () => {
                <li><Link to="/games" className="nav-link">Games Home</Link></li>
                <li><Link to="/games/drum-machine" className="nav-link">Drum Machine</Link></li>
                <li><Link to="/games/And I Will Always Love You" className="nav-link">And I Will Always Love You!!!!</Link></li>
-               <li className="ml-auto"><Link to="/">Home</Link></li>
+               <li className=" ml-auto"><Link to="/" className="nav-link">Home</Link></li>
             </ul>
          </nav>
 
