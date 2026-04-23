@@ -489,15 +489,15 @@ function RouteComponent() {
 
         {/* Secondary 30% block */}
         <div className="flex flex-row bg-bone-100 text-left px-5 my-10 border-y-2 border-khaki-beige-300/40">
-            <section className="w-1/2 flex flex-col border-r-2 border-jungle-teal-600 pr-5 py-5">
-              <h2 className="text-xl self-center text-jungle-teal-600">Why <em>rhythm</em>, specifically?</h2>
+            <section className="w-1/2 flex flex-col border-r-2 border-deep-teal-600 pr-5 py-5">
+              <h2 className="text-xl self-center text-deep-teal-600">Why <em>rhythm</em>, specifically?</h2>
               <p className="text-justify">
                   Well... in music, there are two (main) kinds of theory: <span className="text-khaki-beige-300">Music Theory</span> and <span className="text-khaki-beige-300">Rhythm Theory</span> Music Theory is the overarching study of how music works. This can be from how to classify intervals, chords (and chord progressions), rhythm, and so many more! Rhythm Theory is a <span className="text-khaki-beige-300">concentration</span> of how rhythm works within music. For the sake of this project, we will mainly work under rhythm theory.
               </p>
             </section>
 
-            <section className="w-1/2 flex flex-col border-l-2 border-jungle-teal-600 pl-5 py-5">
-              <h2 className="text-xl self-center text-jungle-teal-600">Why Rhythm Theory?</h2>
+            <section className="w-1/2 flex flex-col border-l-2 border-deep-teal-600 pl-5 py-5">
+              <h2 className="text-xl self-center text-deep-teal-600">Why Rhythm Theory?</h2>
               <p className="text-justify">
                   Because it's way cooler! Rhythm can describe an objective love that many people have towards music. In fact, many times, people will like a song without actually understanding the <em>why</em> behind the song that they like.
               </p>
@@ -507,7 +507,7 @@ function RouteComponent() {
         <div className="flex flex-col gap-10">
             <section className="w-full flex flex-col">
               <h2 className="text-xl self-center text-center">
-                  <span className="text-jungle-teal-600">Pulse</span>, 
+                  <span className="text-deep-teal-600">Pulse</span>, 
                   <span className="text-khaki-beige-300"> Sound</span>, 
                   <span className="text-orange-500"> Meter</span>
               </h2>
@@ -519,17 +519,17 @@ function RouteComponent() {
             {/* Secondary 30% block */}
             <div className="flex flex-row gap-10 p-5 bg-bone-100 border-y-2 border-khaki-beige-300/40">
               <section className="w-1/3 flex flex-col">
-              <h2 className="text-xl self-center text-jungle-teal-600">Pulse: The Impact</h2>
+              <h2 className="text-xl self-center text-deep-teal-600">Pulse: The Impact</h2>
                   <p>Many people seem to argue about the perfect definition of what a <em>pulse</em> is, so for simplicity, here is my definition: <b>Pulse</b> is the <em>measured time</em> between two <em>sounds</em>. Many people believe that pulse should be consistent; however, I do not believe this to be the case. A piece of technology that is able to measure this for us is the <b>metronome</b>. Nowadays, we have electronic metronomes, but the original analogue metronomes consist of a pendulum that swings back and forth, creating a ticking sound at regular intervals. The speed of the metronome can be adjusted to create different tempos, which is the speed at which the pulse is measured. Each click of the metronome can be called the pulse.</p>
               </section>
 
               <section className="w-1/3 flex flex-col">
-                  <h2 className="text-xl self-center text-jungle-teal-600">Sound: The Resonant</h2>
+                  <h2 className="text-xl self-center text-deep-teal-600">Sound: The Resonant</h2>
                   <p>Sound is the vibration of air particles. When we hear a sound, we are actually hearing the vibrations of air particles that are created by an object. For example, when we hit a drum, we are creating vibrations in the air that we can hear as sound.</p>
               </section>
 
               <section className="w-1/3 flex flex-col">
-                  <h2 className="text-xl self-center text-jungle-teal-600">Meter: The Container</h2>
+                  <h2 className="text-xl self-center text-deep-teal-600">Meter: The Container</h2>
                   <p>Taking what we know about pulse, we can now tackle what BPM is. BPM stands for <b>Beats Per Minute</b>, and it is a way to measure the tempo of a piece of music. It is calculated by counting the number of beats in a minute and dividing it by the number of beats in a measure. For example, if there are 4 beats in a measure and the tempo is 120 BPM, then there are 120/4 = 30 measures per minute and the meter is called <span><sup>4</sup>/<sub>4</sub></span>. There are many different meters, both complex and simple, but for this short introduction, we will only cover the most common meters.</p>
               </section>
             </div>
@@ -538,7 +538,7 @@ function RouteComponent() {
         {/* Primary 60% block */}
           <div className="flex flex-col gap-10 px-20 pb-10 bg-porcelain-50">
             <section className="pt-5 self-center text-center flex flex-col">
-            <h2 className="text-xl text-jungle-teal-600">Subdivisions: The Cutting of Music</h2>
+            <h2 className="text-xl text-deep-teal-600">Subdivisions: The Cutting of Music</h2>
               <p className="w-1/2 self-center">A <b>Subdivision</b> is a broken down fragment of a beat. The formula for common subdivisions are quite simple. For this example, we will work under <span><sup>4</sup>/<sub>4</sub></span>.</p>
             </section>
 
@@ -576,19 +576,19 @@ function RouteComponent() {
         {/* Secondary 30% block */}
           <div className="flex flex-row gap-5 p-5 bg-bone-100 border-t-2 border-khaki-beige-300/40">
             <section className="flex flex-col w-1/2">
-            <h2 className="text-xl self-center text-jungle-teal-600">Groove: Why We Dance</h2>
+            <h2 className="text-xl self-center text-deep-teal-600">Groove: Why We Dance</h2>
               <p>By utilizing all that we have learned so far, we can finally explain what groove is: Groove is the feeling you get when your favorite song comes on and you start nodding your head, tapping your feet, or even clicking your teeth to the beat; however, groove is very subjective in nature.
 
                   One person might love technical grooves from bands or artists such as 'Yes', 'King Crimson', 'Tool', or 'Rush'; however, other people might prefer more <em>simplistic</em> grooves from bands or artists such as 'Michael Jackson', 'NLE Choppa', 'The Beatles', or 'The Grateful Dead'!</p>
             </section>
             <section className="flex flex-col w-1/2">
-              <h2 className="text-xl self-center text-jungle-teal-600">Groove vs. Rhythm: Quantizing Feel</h2>
+              <h2 className="text-xl self-center text-deep-teal-600">Groove vs. Rhythm: Quantizing Feel</h2>
               <p>Throughout reading, many of these terms can easily be replaced with <em>rhythm</em>. That being said, I want to ensure that there is a clear distinction between rhythm and groove. Rhythm is the perfectly measured time; groove is a humanized version. People can groove on time, rushing, or dragging. Computers can produce rhythm on time or synthesized to be <em>off time</em>.</p>
             </section>
         </div>
 
         {/* Accent-heavy footer */}
-        <footer className="flex flex-row bg-jungle-teal-600">
+        <footer className="flex flex-row bg-deep-teal-600">
             <p className="m-10 self-center text-center text-porcelain-50 w-full text-3xl">
               If groove is how we feel music rhythm is how we study it
             </p>

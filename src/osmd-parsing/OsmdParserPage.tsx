@@ -531,29 +531,29 @@ function OsmdParserPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-metro-primary flex flex-col font-gotu">
-      <header className="bg-metro-dark text-metro-primary py-4 px-8 shadow-lg">
+    <div className="min-h-screen bg-azure-mist-50 flex flex-col font-gotu">
+      <header className="bg-shadow-grey-900 text-azure-mist-50 py-4 px-8 shadow-lg">
         <h1 className="text-center text-2xl md:text-3xl font-semibold tracking-widest uppercase">MusicXML Drum Loop Builder</h1>
-        <p className="text-center text-xs text-metro-secondary tracking-wide mt-0.5">
+        <p className="text-center text-xs text-pale-sky-300 tracking-wide mt-0.5">
           Drum notation activity
           {' · '}
           {transportState === 'started' ? (
-            <span className="text-metro-primary">Playing</span>
+            <span className="text-azure-mist-50">Playing</span>
           ) : transportState === 'paused' ? (
-            <span className="text-metro-secondary">Paused</span>
+            <span className="text-pale-sky-300">Paused</span>
           ) : (
-            <span className="text-metro-accent">Stopped</span>
+            <span className="text-blue-slate-600">Stopped</span>
           )}
         </p>
       </header>
 
       <main className="flex-1 flex flex-col gap-6 p-4 md:p-6 max-w-7xl mx-auto w-full">
         {/* Controls card */}
-        <section className="rounded-2xl border-2 border-metro-secondary bg-metro-primary/60 p-5">
+        <section className="rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-1">
-              <p className="text-xs uppercase tracking-widest text-metro-accent font-semibold">Score &amp; Playback</p>
-              <p className="max-w-xl text-sm text-metro-accent leading-relaxed">
+              <p className="text-xs uppercase tracking-widest text-blue-slate-600 font-semibold">Score &amp; Playback</p>
+              <p className="max-w-xl text-sm text-blue-slate-600 leading-relaxed">
                 Select a MusicXML score, enable audio, then use the controls to play back the drum pattern.
               </p>
             </div>
@@ -562,7 +562,7 @@ function OsmdParserPageInner() {
               <button
                 type="button"
                 onClick={handleEnableAudio}
-                className="rounded-xl bg-metro-secondary px-5 py-2.5 text-sm font-semibold text-metro-dark hover:bg-metro-primary transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-pale-sky-300 px-5 py-2.5 text-sm font-semibold text-shadow-grey-900 hover:bg-azure-mist-50 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Enable Audio
               </button>
@@ -570,7 +570,7 @@ function OsmdParserPageInner() {
                 type="button"
                 onClick={handlePlay}
                 disabled={!isReadyToPlay}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isReadyToPlay ? 'bg-metro-dark text-metro-primary hover:bg-metro-accent' : 'bg-metro-accent/30 text-metro-accent'}`}
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isReadyToPlay ? 'bg-shadow-grey-900 text-azure-mist-50 hover:bg-blue-slate-600' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
               >
                 {transportState === 'paused' ? 'Resume' : '▶ Play'}
               </button>
@@ -578,7 +578,7 @@ function OsmdParserPageInner() {
                 type="button"
                 onClick={handlePause}
                 disabled={Tone.Transport.state !== 'started'}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${Tone.Transport.state === 'started' ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark' : 'bg-metro-accent/30 text-metro-accent'}`}
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${Tone.Transport.state === 'started' ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
               >
                 ‖ Pause
               </button>
@@ -586,7 +586,7 @@ function OsmdParserPageInner() {
                 type="button"
                 onClick={handleRestart}
                 disabled={!isReadyToPlay}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isReadyToPlay ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark' : 'bg-metro-accent/30 text-metro-accent'}`}
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isReadyToPlay ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
               >
                 ↺ Restart
               </button>
@@ -595,15 +595,15 @@ function OsmdParserPageInner() {
 
           {/* Score / Playback controls */}
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-xl border border-metro-secondary bg-metro-primary/70 p-4">
-              <p className="text-xs uppercase tracking-widest text-metro-secondary font-semibold mb-3">Score</p>
+            <div className="rounded-xl border border-pale-sky-300 bg-azure-mist-50/70 p-4">
+              <p className="text-xs uppercase tracking-widest text-pale-sky-300 font-semibold mb-3">Score</p>
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <label className="min-w-[5rem] text-sm font-semibold text-metro-dark">File</label>
+                <label className="min-w-[5rem] text-sm font-semibold text-shadow-grey-900">File</label>
                 <select
                   value={selectedScore ?? ''}
                   onChange={(event) => setSelectedScore(event.target.value)}
                   disabled={scoreListQuery.isLoading || !!scoreListQuery.error}
-                  className="w-full rounded-lg border border-metro-secondary bg-metro-primary px-3 py-2 text-metro-dark outline-none transition focus:border-metro-accent"
+                  className="w-full rounded-lg border border-pale-sky-300 bg-azure-mist-50 px-3 py-2 text-shadow-grey-900 outline-none transition focus:border-blue-slate-600"
                 >
                   {scoreListQuery.data?.map((score) => (
                     <option key={score} value={score}>
@@ -614,16 +614,16 @@ function OsmdParserPageInner() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-metro-secondary bg-metro-primary/70 p-4">
-              <p className="text-xs uppercase tracking-widest text-metro-secondary font-semibold mb-3">Playback</p>
+            <div className="rounded-xl border border-pale-sky-300 bg-azure-mist-50/70 p-4">
+              <p className="text-xs uppercase tracking-widest text-pale-sky-300 font-semibold mb-3">Playback</p>
               <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-lg bg-metro-secondary/40 px-3 py-1 text-sm font-medium text-metro-dark">
+                <span className="rounded-lg bg-pale-sky-300/40 px-3 py-1 text-sm font-medium text-shadow-grey-900">
                   {scoreQuery.isFetching ? 'Loading score…' : selectedScore ? 'Score loaded' : 'Choose score'}
                 </span>
                 <button
                   type="button"
                   onClick={() => setLoopEnabled((prev) => !prev)}
-                  className={`rounded-xl px-4 py-2 text-sm font-semibold transition-colors ${loopEnabled ? 'bg-metro-accent text-metro-primary hover:bg-metro-secondary hover:text-metro-dark' : 'bg-metro-secondary/40 text-metro-dark hover:bg-metro-secondary'}`}
+                  className={`rounded-xl px-4 py-2 text-sm font-semibold transition-colors ${loopEnabled ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900' : 'bg-pale-sky-300/40 text-shadow-grey-900 hover:bg-pale-sky-300'}`}
                 >
                   Loop: {loopEnabled ? 'On' : 'Off'}
                 </button>
@@ -633,15 +633,15 @@ function OsmdParserPageInner() {
 
           {/* Stats row */}
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-            <span className="rounded-lg bg-metro-accent/30 border border-metro-accent px-3 py-1.5 text-metro-primary font-medium">Tempo: {tempo} BPM</span>
-            <span className="rounded-lg bg-metro-accent/30 border border-metro-accent px-3 py-1.5 text-metro-primary font-medium">Duration: {durationSeconds.toFixed(2)}s</span>
-            <span className="rounded-lg bg-metro-accent/30 border border-metro-accent px-3 py-1.5 text-metro-primary font-medium">Events: {events.length}</span>
-            <span className="rounded-lg bg-metro-accent/30 border border-metro-accent px-3 py-1.5 text-metro-primary font-medium">Audio: {audioEnabled ? 'enabled' : 'disabled'}</span>
-            <span className="rounded-lg bg-metro-accent/30 border border-metro-accent px-3 py-1.5 text-metro-primary font-medium">Transport: {transportState}</span>
+            <span className="rounded-lg bg-blue-slate-600/30 border border-blue-slate-600 px-3 py-1.5 text-azure-mist-50 font-medium">Tempo: {tempo} BPM</span>
+            <span className="rounded-lg bg-blue-slate-600/30 border border-blue-slate-600 px-3 py-1.5 text-azure-mist-50 font-medium">Duration: {durationSeconds.toFixed(2)}s</span>
+            <span className="rounded-lg bg-blue-slate-600/30 border border-blue-slate-600 px-3 py-1.5 text-azure-mist-50 font-medium">Events: {events.length}</span>
+            <span className="rounded-lg bg-blue-slate-600/30 border border-blue-slate-600 px-3 py-1.5 text-azure-mist-50 font-medium">Audio: {audioEnabled ? 'enabled' : 'disabled'}</span>
+            <span className="rounded-lg bg-blue-slate-600/30 border border-blue-slate-600 px-3 py-1.5 text-azure-mist-50 font-medium">Transport: {transportState}</span>
           </div>
 
           {statusMessage ? (
-            <div className="mt-4 rounded-xl bg-metro-secondary/40 border border-metro-secondary px-4 py-3 text-sm text-metro-accent">
+            <div className="mt-4 rounded-xl bg-pale-sky-300/40 border border-pale-sky-300 px-4 py-3 text-sm text-blue-slate-600">
               {statusMessage}
             </div>
           ) : null}
@@ -649,30 +649,30 @@ function OsmdParserPageInner() {
 
         {/* Instructions + Warnings */}
         <section className="grid gap-6 lg:grid-cols-[1fr_300px]">
-          <aside className="flex flex-col gap-4 rounded-2xl border-2 border-metro-secondary bg-metro-primary/60 p-5">
-            <h2 className="text-lg font-semibold text-metro-dark border-b border-metro-secondary pb-2">How to Use</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-metro-dark leading-relaxed">
+          <aside className="flex flex-col gap-4 rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
+            <h2 className="text-lg font-semibold text-shadow-grey-900 border-b border-pale-sky-300 pb-2">How to Use</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm text-shadow-grey-900 leading-relaxed">
               <li>Click <strong>Enable Audio</strong> to unlock browser audio.</li>
               <li>Choose a MusicXML score from the dropdown.</li>
               <li>Press <strong>Play</strong> to hear the drum pattern from the score.</li>
               <li>Use <strong>Pause</strong> and <strong>Restart</strong> to control playback.</li>
               <li>Toggle <strong>Loop</strong> to repeat the drum pattern automatically.</li>
             </ol>
-            <div className="mt-auto rounded-xl bg-metro-secondary/40 p-3 text-xs text-metro-accent leading-relaxed">
+            <div className="mt-auto rounded-xl bg-pale-sky-300/40 p-3 text-xs text-blue-slate-600 leading-relaxed">
               <strong>Note:</strong> Notation is rendered with OpenSheetMusicDisplay. Drum samples are loaded from <code>/drums/</code>.
             </div>
           </aside>
 
-          <aside className="flex flex-col gap-4 rounded-2xl bg-metro-dark p-5 text-metro-primary">
-            <h3 className="text-lg font-semibold tracking-wide border-b border-metro-accent pb-2">Warnings</h3>
-            <p className="text-xs text-metro-secondary leading-relaxed">Notes without a matching drum sample are skipped during playback.</p>
+          <aside className="flex flex-col gap-4 rounded-2xl bg-shadow-grey-900 p-5 text-azure-mist-50">
+            <h3 className="text-lg font-semibold tracking-wide border-b border-blue-slate-600 pb-2">Warnings</h3>
+            <p className="text-xs text-pale-sky-300 leading-relaxed">Notes without a matching drum sample are skipped during playback.</p>
             {missingNotes.length > 0 ? (
-              <div className="rounded-xl bg-metro-accent/30 border border-metro-accent p-4 text-sm text-metro-primary">
-                <p className="font-semibold text-xs uppercase tracking-widest text-metro-secondary mb-2">Missing sample mapping</p>
+              <div className="rounded-xl bg-blue-slate-600/30 border border-blue-slate-600 p-4 text-sm text-azure-mist-50">
+                <p className="font-semibold text-xs uppercase tracking-widest text-pale-sky-300 mb-2">Missing sample mapping</p>
                 <p className="text-xs leading-6">{missingNotes.join(', ')}</p>
               </div>
             ) : (
-              <div className="rounded-xl bg-metro-secondary/25 border border-metro-secondary p-4 text-sm text-metro-primary">
+              <div className="rounded-xl bg-pale-sky-300/25 border border-pale-sky-300 p-4 text-sm text-azure-mist-50">
                 All note pitches mapped to drum samples.
               </div>
             )}
@@ -680,18 +680,18 @@ function OsmdParserPageInner() {
         </section>
 
         {/* Score preview */}
-        <section className="rounded-2xl border-2 border-metro-secondary bg-white/45 p-4 md:p-6">
+        <section className="rounded-2xl border-2 border-pale-sky-300 bg-white/45 p-4 md:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-semibold text-metro-dark tracking-wide">Score Preview</h2>
-              <p className="text-sm text-metro-accent">The MusicXML file is rendered below as sheet music.</p>
+              <h2 className="text-2xl font-semibold text-shadow-grey-900 tracking-wide">Score Preview</h2>
+              <p className="text-sm text-blue-slate-600">The MusicXML file is rendered below as sheet music.</p>
             </div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-metro-dark px-4 py-2 text-sm text-metro-primary shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-metro-accent"></span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-shadow-grey-900 px-4 py-2 text-sm text-azure-mist-50 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-blue-slate-600"></span>
               OpenSheetMusicDisplay
             </div>
           </div>
-          <div className="overflow-hidden rounded-xl border-2 border-metro-secondary bg-metro-primary/60 p-3">
+          <div className="overflow-hidden rounded-xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-3">
             <div ref={osmdContainerRef} className="min-h-[420px]" />
           </div>
         </section>

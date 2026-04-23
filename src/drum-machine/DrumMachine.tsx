@@ -498,26 +498,26 @@ function DrumMachineInner() {
 
   if (!hasStarted) {
     return (
-      <div className="min-h-screen bg-[var(--color-drum-slate-950)] text-[var(--color-drum-slate-100)] p-6">
-        <div className="mx-auto max-w-6xl rounded-3xl bg-[var(--color-drum-slate-900-95)] border border-[var(--color-drum-slate-700)] shadow-2xl shadow-[var(--color-drum-slate-950-40)] p-6">
+      <div className="min-h-screen bg-[var(--color-dusty-grape-950)] text-[var(--color-dusty-lavender-50)] p-6">
+        <div className="mx-auto max-w-6xl rounded-3xl bg-[var(--color-dusty-grape-900)] border border-[var(--color-dusty-grape-600)] shadow-2xl shadow-[var(--color-dusty-grape-950)] p-6">
           <header className="mb-8 space-y-4">
             <div>
-              <p className="mb-2 text-sm uppercase tracking-[0.3em] text-[var(--color-drum-emerald-400)]">Drum Machine Activity</p>
-              <h1 className="text-3xl font-semibold text-[var(--color-drum-white)]">Choose Your Instruments</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-drum-slate-300)]">
+              <p className="mb-2 text-sm uppercase tracking-[0.3em] text-[var(--color-azure-mist-400)]">Drum Machine Activity</p>
+              <h1 className="text-3xl font-semibold text-[var(--color-dusty-lavender-50)]">Choose Your Instruments</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-dusty-lavender-200)]">
                 Start with a blank canvas. Select the instruments you wish to use and then begin building the pattern.
               </p>
             </div>
           </header>
 
-          <div className="mb-6 rounded-3xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800-80)] p-4 text-sm text-[var(--color-drum-slate-300)]">
-            <label className="flex flex-col gap-2 text-sm uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+          <div className="mb-6 rounded-3xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] p-4 text-sm text-[var(--color-dusty-lavender-200)]">
+            <label className="flex flex-col gap-2 text-sm uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
               Select a preset kit
               <div className="flex flex-wrap items-center gap-3">
                 <select
                   value={selectedPreset}
                   onChange={(event) => handlePresetChange(event.target.value)}
-                  className="rounded-2xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-900-95)] px-3 py-2 text-sm text-[var(--color-drum-slate-100)] outline-none focus:border-[var(--color-drum-emerald-400)]"
+                  className="rounded-2xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-900)] px-3 py-2 text-sm text-[var(--color-dusty-lavender-50)] outline-none focus:border-[var(--color-azure-mist-400)]"
                 >
                   <option value="none">Choose a preset</option>
                   {drumKitPresets.map((preset) => (
@@ -526,7 +526,7 @@ function DrumMachineInner() {
                     </option>
                   ))}
                 </select>
-                <span className="text-[var(--color-drum-slate-400)]">Loads the instrument set for the selected kit.</span>
+                <span className="text-[var(--color-dusty-lavender-300)]">Loads the instrument set for the selected kit.</span>
               </div>
             </label>
           </div>
@@ -541,16 +541,16 @@ function DrumMachineInner() {
                   onClick={() => toggleInstrumentSelection(instrument.key)}
                   className={`rounded-3xl border p-4 text-left transition-colors duration-150 ${
                     selected
-                      ? 'border-[var(--color-drum-emerald-400)] bg-[var(--color-drum-emerald-500-15)] text-[var(--color-drum-slate-100)]'
-                      : 'border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800-90)] text-[var(--color-drum-slate-300)] hover:border-[var(--color-drum-emerald-400)]'
+                      ? 'border-[var(--color-azure-mist-400)] bg-[var(--color-dark-cyan-900)] text-[var(--color-dusty-lavender-50)]'
+                      : 'border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] text-[var(--color-dusty-lavender-200)] hover:border-[var(--color-azure-mist-400)]'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-semibold text-[var(--color-drum-white)]">{instrument.name}</p>
-                      <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-500)]">{instrument.key}</p>
+                      <p className="font-semibold text-[var(--color-dusty-lavender-50)]">{instrument.name}</p>
+                      <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-400)]">{instrument.key}</p>
                     </div>
-                    <div className="text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+                    <div className="text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
                       {selected ? 'Selected' : 'Select'}
                     </div>
                   </div>
@@ -560,13 +560,13 @@ function DrumMachineInner() {
           </section>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
-            <p className="text-sm text-[var(--color-drum-slate-300)]">
+            <p className="text-sm text-[var(--color-dusty-lavender-200)]">
               {selectedInstrumentKeys.length} instrument{selectedInstrumentKeys.length === 1 ? '' : 's'} selected.
             </p>
             <button
               type="button"
               onClick={() => setSelectedInstrumentKeys(instrumentList.slice(0, 4).map((instrument) => instrument.key))}
-              className="rounded-2xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800)] px-4 py-3 text-sm text-[var(--color-drum-slate-200)] hover:border-[var(--color-drum-emerald-500)]"
+              className="rounded-2xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] px-4 py-3 text-sm text-[var(--color-dusty-lavender-100)] hover:border-[var(--color-azure-mist-500)]"
             >
               Quick select first 4
             </button>
@@ -574,7 +574,7 @@ function DrumMachineInner() {
               type="button"
               onClick={() => setHasStarted(true)}
               disabled={!selectedInstrumentKeys.length}
-              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-drum-emerald-500)] px-5 py-3 text-sm font-semibold text-[var(--color-drum-slate-950)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--color-drum-emerald-400)]"
+              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-azure-mist-500)] px-5 py-3 text-sm font-semibold text-[var(--color-dusty-grape-950)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--color-azure-mist-400)]"
             >
               Start Building Pattern
             </button>
@@ -585,14 +585,14 @@ function DrumMachineInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-drum-slate-950)] text-[var(--color-drum-slate-100)] p-6">
-      <div className="mx-auto max-w-7xl rounded-3xl bg-[var(--color-drum-slate-900-95)] border border-[var(--color-drum-slate-700)] shadow-2xl shadow-[var(--color-drum-slate-950-40)] p-6">
+    <div className="min-h-screen bg-[var(--color-dusty-grape-950)] text-[var(--color-dusty-lavender-50)] p-6">
+      <div className="mx-auto max-w-7xl rounded-3xl bg-[var(--color-dusty-grape-900)] border border-[var(--color-dusty-grape-600)] shadow-2xl shadow-[var(--color-dusty-grape-950)] p-6">
         <header className="mb-8 space-y-4">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="mb-2 text-sm uppercase tracking-[0.3em] text-[var(--color-drum-emerald-400)]">Drum Machine Activity</p>
-              <h1 className="text-3xl font-semibold text-[var(--color-drum-white)]">Interactive Drum Grid</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-drum-slate-300)]">
+              <p className="mb-2 text-sm uppercase tracking-[0.3em] text-[var(--color-azure-mist-400)]">Drum Machine Activity</p>
+              <h1 className="text-3xl font-semibold text-[var(--color-dusty-lavender-50)]">Interactive Drum Grid</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-dusty-lavender-200)]">
                 Create a beat by toggling squares in the grid. Adjust measures, subdivisions, mute individual instruments,
                 and shape volume for each row.
               </p>
@@ -602,7 +602,7 @@ function DrumMachineInner() {
                 type="button"
                 onClick={handleEnableAudio}
                 disabled={audioUnlocked || !selectedInstruments.length}
-                className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-drum-slate-600)] bg-[var(--color-drum-slate-800)] px-4 py-3 text-sm text-[var(--color-drum-slate-200)] disabled:opacity-50 disabled:cursor-not-allowed hover:border-[var(--color-drum-emerald-500)]"
+                className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-dusty-grape-500)] bg-[var(--color-dusty-grape-700)] px-4 py-3 text-sm text-[var(--color-dusty-lavender-100)] disabled:opacity-50 disabled:cursor-not-allowed hover:border-[var(--color-azure-mist-500)]"
               >
                 {audioUnlocked ? 'Audio Enabled' : 'Enable Audio'}
               </button>
@@ -610,7 +610,7 @@ function DrumMachineInner() {
                 type="button"
                 onClick={handlePlayPause}
                 disabled={!audioUnlocked}
-                className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-drum-emerald-500)] px-4 py-3 text-sm font-semibold text-[var(--color-drum-slate-950)] disabled:opacity-50 disabled:cursor-not-allowed shadow hover:bg-[var(--color-drum-emerald-400)]"
+                className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-azure-mist-500)] px-4 py-3 text-sm font-semibold text-[var(--color-dusty-grape-950)] disabled:opacity-50 disabled:cursor-not-allowed shadow hover:bg-[var(--color-azure-mist-400)]"
               >
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                 {isPlaying ? 'Pause' : 'Play'}
@@ -618,19 +618,19 @@ function DrumMachineInner() {
               <button
                 type="button"
                 onClick={handleResetPattern}
-                className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-drum-slate-600)] bg-[var(--color-drum-slate-800)] px-4 py-3 text-sm text-[var(--color-drum-slate-200)] hover:border-[var(--color-drum-emerald-500)]"
+                className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-dusty-grape-500)] bg-[var(--color-dusty-grape-700)] px-4 py-3 text-sm text-[var(--color-dusty-lavender-100)] hover:border-[var(--color-azure-mist-500)]"
               >
                 Reset Grid
               </button>
             </div>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-drum-slate-300)]">
+            <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-dusty-lavender-200)]">
               <span>{audioUnlocked ? 'Audio is enabled and ready to play.' : 'Enable audio first to allow Tone playback.'}</span>
             </div>
           </div>
 
-          <div className="grid gap-3 rounded-3xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800-80)] p-4 text-sm text-[var(--color-drum-slate-300)] sm:grid-cols-2">
+          <div className="grid gap-3 rounded-3xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] p-4 text-sm text-[var(--color-dusty-lavender-200)] sm:grid-cols-2">
             <div className="space-y-2">
-              <p className="font-semibold text-[var(--color-drum-white)]">Instructions</p>
+              <p className="font-semibold text-[var(--color-dusty-lavender-50)]">Instructions</p>
               <ul className="list-disc space-y-1 pl-5">
                 <li>Click a square to toggle a drum hit on or off.</li>
                 <li>Use Mute and Volume controls for each instrument row.</li>
@@ -642,7 +642,7 @@ function DrumMachineInner() {
             </div>
             <div className="space-y-3">
               <div className="grid gap-3 sm:grid-cols-2">
-                <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+                <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
                   Measures
                   <input
                     type="range"
@@ -650,7 +650,7 @@ function DrumMachineInner() {
                     max={MAX_MEASURES}
                     value={measures}
                     onChange={(event) => setMeasures(clamp(Number(event.target.value), MIN_MEASURES, MAX_MEASURES))}
-                    className="w-full accent-[var(--color-drum-emerald-400)]"
+                    className="w-full accent-[var(--color-azure-mist-400)]"
                   />
                   <div className="flex items-center gap-2">
                     <input
@@ -660,12 +660,12 @@ function DrumMachineInner() {
                       onBlur={handleMeasuresInputBlur}
                       onKeyDown={handleMeasuresInputKeyDown}
                       onFocus={handleMeasuresInputFocus}
-                      className="w-16 rounded-lg border border-[var(--color-drum-slate-600)] bg-[var(--color-drum-slate-800)] px-2 py-1 text-sm text-[var(--color-drum-slate-200)] focus:border-[var(--color-drum-emerald-400)] focus:outline-none"
+                      className="w-16 rounded-lg border border-[var(--color-dusty-grape-500)] bg-[var(--color-dusty-grape-700)] px-2 py-1 text-sm text-[var(--color-dusty-lavender-100)] focus:border-[var(--color-azure-mist-400)] focus:outline-none"
                     />
-                    <span className="text-sm text-[var(--color-drum-slate-200)]">measure{measures > 1 ? 's' : ''}</span>
+                    <span className="text-sm text-[var(--color-dusty-lavender-100)]">measure{measures > 1 ? 's' : ''}</span>
                   </div>
                 </label>
-                <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+                <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
                   Subdivisions
                   <input
                     type="range"
@@ -673,7 +673,7 @@ function DrumMachineInner() {
                     max={MAX_SUBDIVISIONS}
                     value={subdivisions}
                     onChange={(event) => setSubdivisions(clamp(Number(event.target.value), MIN_SUBDIVISIONS, MAX_SUBDIVISIONS))}
-                    className="w-full accent-[var(--color-drum-emerald-400)]"
+                    className="w-full accent-[var(--color-azure-mist-400)]"
                   />
                   <div className="flex items-center gap-2">
                     <input
@@ -683,14 +683,14 @@ function DrumMachineInner() {
                       onBlur={handleSubdivisionsInputBlur}
                       onKeyDown={handleSubdivisionsInputKeyDown}
                       onFocus={handleSubdivisionsInputFocus}
-                      className="w-16 rounded-lg border border-[var(--color-drum-slate-600)] bg-[var(--color-drum-slate-800)] px-2 py-1 text-sm text-[var(--color-drum-slate-200)] focus:border-[var(--color-drum-emerald-400)] focus:outline-none"
+                      className="w-16 rounded-lg border border-[var(--color-dusty-grape-500)] bg-[var(--color-dusty-grape-700)] px-2 py-1 text-sm text-[var(--color-dusty-lavender-100)] focus:border-[var(--color-azure-mist-400)] focus:outline-none"
                     />
-                    <span className="text-sm text-[var(--color-drum-slate-200)]">step{subdivisions === 1 ? '' : 's'} per measure</span>
+                    <span className="text-sm text-[var(--color-dusty-lavender-100)]">step{subdivisions === 1 ? '' : 's'} per measure</span>
                   </div>
-                  <div className="text-xs text-[var(--color-drum-emerald-300)]">{getTimeSignatureDisplay(subdivisions).timeSignature} time ({getTimeSignatureDisplay(subdivisions).noteName})</div>
+                  <div className="text-xs text-[var(--color-azure-mist-300)]">{getTimeSignatureDisplay(subdivisions).timeSignature} time ({getTimeSignatureDisplay(subdivisions).noteName})</div>
                 </label>
               </div>
-              <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+              <label className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
                 Tempo
                 <input
                   type="range"
@@ -698,7 +698,7 @@ function DrumMachineInner() {
                   max="300"
                   value={bpm}
                   onChange={(event) => setBpm(Number(event.target.value))}
-                  className="w-full accent-[var(--color-drum-emerald-400)]"
+                  className="w-full accent-[var(--color-azure-mist-400)]"
                 />
                 <div className="flex items-center gap-2">
                   <input
@@ -708,14 +708,14 @@ function DrumMachineInner() {
                     onBlur={handleBpmInputBlur}
                     onKeyDown={handleBpmInputKeyDown}
                     onFocus={handleBpmInputFocus}
-                    className="w-20 rounded-lg border border-[var(--color-drum-slate-600)] bg-[var(--color-drum-slate-800)] px-2 py-1 text-sm text-[var(--color-drum-slate-200)] focus:border-[var(--color-drum-emerald-400)] focus:outline-none"
+                    className="w-20 rounded-lg border border-[var(--color-dusty-grape-500)] bg-[var(--color-dusty-grape-700)] px-2 py-1 text-sm text-[var(--color-dusty-lavender-100)] focus:border-[var(--color-azure-mist-400)] focus:outline-none"
                   />
-                  <span className="text-sm text-[var(--color-drum-slate-200)]">BPM</span>
+                  <span className="text-sm text-[var(--color-dusty-lavender-100)]">BPM</span>
                 </div>
-                <div className="text-xs text-[var(--color-drum-slate-400)]">Effective: {Math.round(bpm * (tempoMode === 'double' ? 2 : tempoMode === 'half' ? 0.5 : 1))} BPM ({tempoMode === 'double' ? 'double time' : tempoMode === 'half' ? 'half time' : 'normal'})</div>
+                <div className="text-xs text-[var(--color-dusty-lavender-300)]">Effective: {Math.round(bpm * (tempoMode === 'double' ? 2 : tempoMode === 'half' ? 0.5 : 1))} BPM ({tempoMode === 'double' ? 'double time' : tempoMode === 'half' ? 'half time' : 'normal'})</div>
               </label>
-              <div className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
-                <div className="text-[var(--color-drum-slate-300)]">Tempo mode</div>
+              <div className="space-y-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
+                <div className="text-[var(--color-dusty-lavender-200)]">Tempo mode</div>
                 <div className="flex gap-2">
                   {['half', 'normal', 'double'].map((mode) => (
                     <button
@@ -723,7 +723,7 @@ function DrumMachineInner() {
                       type="button"
                       onClick={() => setTempoMode(mode as 'half' | 'normal' | 'double')}
                       className={`rounded-2xl border px-3 py-2 text-[0.7rem] uppercase tracking-[0.2em] transition-colors duration-150 ${
-                        tempoMode === mode ? 'border-[var(--color-drum-emerald-400)] bg-[var(--color-drum-emerald-500-15)] text-[var(--color-drum-emerald-200)]' : 'border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800)] text-[var(--color-drum-slate-300)] hover:border-[var(--color-drum-emerald-400)]'
+                        tempoMode === mode ? 'border-[var(--color-azure-mist-400)] bg-[var(--color-dark-cyan-900)] text-[var(--color-azure-mist-200)]' : 'border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] text-[var(--color-dusty-lavender-200)] hover:border-[var(--color-azure-mist-400)]'
                       }`}
                     >
                       {mode === 'half' ? 'Half' : mode === 'double' ? 'Double' : 'Normal'}
@@ -736,39 +736,39 @@ function DrumMachineInner() {
         </header>
 
         <div className="space-y-4">
-          <div className="flex flex-col gap-3 rounded-3xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800-90)] px-4 py-3 text-sm text-[var(--color-drum-slate-300)] sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 rounded-3xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] px-4 py-3 text-sm text-[var(--color-dusty-lavender-200)] sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-semibold text-[var(--color-drum-white)]">Grid</p>
-              <p className="text-[var(--color-drum-slate-400)]">{selectedInstruments.length} instruments × {measures} measure{measures === 1 ? '' : 's'} × {subdivisions} step{subdivisions === 1 ? '' : 's'} per measure</p>
+              <p className="font-semibold text-[var(--color-dusty-lavender-50)]">Grid</p>
+              <p className="text-[var(--color-dusty-lavender-300)]">{selectedInstruments.length} instruments × {measures} measure{measures === 1 ? '' : 's'} × {subdivisions} step{subdivisions === 1 ? '' : 's'} per measure</p>
             </div>
             <button
               type="button"
               onClick={() => setHasStarted(false)}
-              className="rounded-2xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800)] px-3 py-2 text-xs uppercase tracking-[0.25em] text-[var(--color-drum-slate-200)] hover:border-[var(--color-drum-emerald-500)]"
+              className="rounded-2xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] px-3 py-2 text-xs uppercase tracking-[0.25em] text-[var(--color-dusty-lavender-100)] hover:border-[var(--color-azure-mist-500)]"
             >
               Change instruments
             </button>
-            <div className="rounded-2xl bg-[var(--color-drum-slate-950)] px-3 py-2 text-xs uppercase tracking-[0.25em] text-[var(--color-drum-emerald-300)]">
+            <div className="rounded-2xl bg-[var(--color-dusty-grape-950)] px-3 py-2 text-xs uppercase tracking-[0.25em] text-[var(--color-azure-mist-300)]">
               {isReady ? 'Samples loaded' : 'Loading samples...'}
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-900-90)] p-4">
+          <div className="overflow-x-auto rounded-3xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-900)] p-4">
             <div className="min-w-full">
               <div className="grid grid-cols-[minmax(12rem,14rem)_1fr] gap-4">
                 <div className="space-y-2">
-                  <div className="rounded-2xl bg-[var(--color-drum-slate-900-95)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">Instrument</div>
+                  <div className="rounded-2xl bg-[var(--color-dusty-grape-900)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">Instrument</div>
                 </div>
-                <div className="rounded-2xl bg-[var(--color-drum-slate-900-95)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">Pattern</div>
+                <div className="rounded-2xl bg-[var(--color-dusty-grape-900)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">Pattern</div>
               </div>
 
               <div className="space-y-3 pt-3">
                 {selectedInstruments.map((instrument, instrumentIndex) => (
-                  <div key={instrument.key} className="grid grid-cols-[minmax(12rem,14rem)_1fr] gap-4 rounded-3xl border border-[var(--color-drum-slate-800)] bg-[var(--color-drum-slate-950-90)] p-3">
+                  <div key={instrument.key} className="grid grid-cols-[minmax(12rem,14rem)_1fr] gap-4 rounded-3xl border border-[var(--color-dusty-grape-700)] bg-[var(--color-dusty-grape-950)] p-3">
                     <div className="space-y-3">
                       <div>
-                        <p className="font-semibold text-[var(--color-drum-white)]">{instrument.name}</p>
-                        <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-500)]">{instrument.key}</p>
+                        <p className="font-semibold text-[var(--color-dusty-lavender-50)]">{instrument.name}</p>
+                        <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-400)]">{instrument.key}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <button
@@ -779,13 +779,13 @@ function DrumMachineInner() {
                               [instrument.key]: !current[instrument.key],
                             }))
                           }
-                          className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-200)] hover:border-[var(--color-drum-emerald-500)]"
+                          className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] px-3 py-2 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-100)] hover:border-[var(--color-azure-mist-500)]"
                         >
                           {muteStates[instrument.key] ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                           {muteStates[instrument.key] ? 'Muted' : 'Live'}
                         </button>
                       </div>
-                      <label className="space-y-1 text-xs uppercase tracking-[0.2em] text-[var(--color-drum-slate-400)]">
+                      <label className="space-y-1 text-xs uppercase tracking-[0.2em] text-[var(--color-dusty-lavender-300)]">
                         Volume
                         <input
                           type="range"
@@ -798,7 +798,7 @@ function DrumMachineInner() {
                               [instrument.key]: Number(event.target.value),
                             }))
                           }
-                          className="w-full accent-[var(--color-drum-emerald-400)]"
+                          className="w-full accent-[var(--color-azure-mist-400)]"
                         />
                       </label>
                     </div>
@@ -807,13 +807,13 @@ function DrumMachineInner() {
                       ref={(el) => {
                         scrollRefs.current[instrumentIndex] = el
                       }}
-                      className="overflow-x-auto rounded-3xl border border-[var(--color-drum-slate-800)] bg-[var(--color-drum-slate-900-95)] p-2"
+                      className="overflow-x-auto rounded-3xl border border-[var(--color-dusty-grape-700)] bg-[var(--color-dusty-grape-900)] p-2"
                       onScroll={(event) => handleScroll(event, instrumentIndex)}
                     >
                       <div className="space-y-2">
                         {Array.from({ length: measures }, (_, measureIndex) => (
                           <div key={measureIndex} className="text-center">
-                            <div className="mb-1 text-xs text-[var(--color-drum-slate-500)] uppercase tracking-[0.2em]">
+                            <div className="mb-1 text-xs text-[var(--color-dusty-lavender-400)] uppercase tracking-[0.2em]">
                               Measure {measureIndex + 1}
                             </div>
                             <div
@@ -831,9 +831,9 @@ function DrumMachineInner() {
                                     onClick={() => toggleCell(instrumentIndex, stepIndex)}
                                     className={`h-10 rounded-xl border transition-colors duration-150 ${
                                       active
-                                        ? 'border-[var(--color-drum-emerald-400)] bg-[var(--color-drum-emerald-500-80)] text-[var(--color-drum-slate-950)]'
-                                        : 'border-[var(--color-drum-slate-700)] bg-[var(--color-drum-slate-800)] text-[var(--color-drum-slate-300)]'
-                                      } ${isCurrent ? 'shadow-[0_0_0_3px_var(--color-drum-current-step-ring)]' : ''}`}
+                                        ? 'border-[var(--color-azure-mist-400)] bg-[var(--color-dark-cyan-500)] text-[var(--color-dusty-grape-950)]'
+                                        : 'border-[var(--color-dusty-grape-600)] bg-[var(--color-dusty-grape-700)] text-[var(--color-dusty-lavender-200)]'
+                                      } ${isCurrent ? 'shadow-[0_0_0_3px_var(--color-azure-mist-500)]' : ''}`}
                                     aria-label={`Measure ${measureIndex + 1}, Step ${subdivisionIndex + 1} ${active ? 'active' : 'inactive'}`}
                                   >
                                     <span className="text-[0.65rem] leading-none">{subdivisionIndex + 1}</span>

@@ -42,8 +42,8 @@ function RouteComponent() {
             {/* LEFT COLUMN */}
             <div className=" flex flex-col w-2/3 text-base/7 m-10 self-center">
 
-               <section className="h-fit border-y border-jungle-teal-600 py-5 ">
-                  <h2 className="text-jungle-teal-600 text-xl">What are Music Genres?</h2>
+               <section className="h-fit border-y border-deep-teal-600 py-5 ">
+                  <h2 className="text-deep-teal-600 text-xl">What are Music Genres?</h2>
                   <p>
                      A Music Genre has origins, hybrid genres, and impacts. Since this website is focused on rhythm, I will mainly cover how the rhythm and groove of a genre is formed and how that genre shapes other new genres.
 
@@ -57,8 +57,8 @@ function RouteComponent() {
                   </p>
                </section>
 
-               <section className="border-b border-jungle-teal-600 py-5">
-                  <h2 className="text-jungle-teal-600 text-xl">What Makes a Music Genre?</h2>
+               <section className="border-b border-deep-teal-600 py-5">
+                  <h2 className="text-deep-teal-600 text-xl">What Makes a Music Genre?</h2>
                   <p className="block-fit">
                      Since music is an art form, it is also subjective in nature.
 
@@ -73,9 +73,9 @@ function RouteComponent() {
             </div>
 
             {/* RIGHT COLUMN */}
-            <div className="gap-5 flex flex-col w-1/3 text-base/7 border-l-2 border-jungle-teal-600 pl-5">
+            <div className="gap-5 flex flex-col w-1/3 text-base/7 border-l-2 border-deep-teal-600 pl-5">
                <section>
-               <h2 className="text-jungle-teal-600 text-xl">Psychology</h2>
+               <h2 className="text-deep-teal-600 text-xl">Psychology</h2>
                   <p>
                      Psychologically, our brains handle information in <em>schema</em>, which is a mental structure that organizes knowledge and expectations. We, as humans who use schemas, appreciate structure. When attempting to explore something potentially abstract, our brain will try and categorize it into multiple schemas. This is what births genres of music.
 
@@ -90,7 +90,7 @@ function RouteComponent() {
 
          </div>
 
-         <footer className="hyphens-auto bg-jungle-teal-600 py-5 rounded-md">
+         <footer className="hyphens-auto bg-deep-teal-600 py-5 rounded-md">
             <h2 className="text-center text-2xl text-porcelain-50">Genres to Explore</h2>
             <div className="justify-items-center mt-3">
                <ul className="flex gap-5 text-justify tracking-wide text-md text-porcelain-50">

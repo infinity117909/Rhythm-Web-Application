@@ -4,27 +4,25 @@ import { Link, Outlet } from '@tanstack/react-router'
 export const HomeNavbar = () => {
    return (
       <>
-         <nav className="">
+         <nav className="flex items-center justify-center min-h-screen bg-gray-950">
             <svg
                viewBox="0 0 300 300"
-               className="w-full mx-auto cursor-pointer select-none h-screen"
+               className="w-[min(90vw,90vh)] mx-auto cursor-pointer select-none drop-shadow-2xl"
             >
-
             {/* --- EDUCATION --- */ }
             <Link to="/education">
                <g className="group">
                   <path
                      d="M150,150 L150,50 A100,100 0 0,1 236.6,200 Z"
-                     fill="#5D866C"
-                     stroke="black"
-                     className="transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.005]"
+                     className="fill-deep-teal-600 stroke-white stroke-[0.5] transition-all duration-300 group-hover:opacity-85 group-hover:brightness-110"
                   />
                   <text
-                     x="190"
-                     y="120"
+                     x="206"
+                     y="118"
                      textAnchor="middle"
                      dominantBaseline="middle"
-                     className="pointer-events-none fill-black font-semibold text-[14px]"
+                     transform="rotate(60, 206, 118)"
+                     className="pointer-events-none fill-white font-semibold text-[12px] drop-shadow"
                   >
                      Education
                   </text>
@@ -36,16 +34,14 @@ export const HomeNavbar = () => {
                <g className="group">
                   <path
                      d="M150,150 L236.6,200 A100,100 0 0,1 63.4,200 Z"
-                     fill="#7fbfff"
-                     stroke="black"
-                     className="transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.02]"
+                     className="fill-blue-slate-600 stroke-white stroke-[0.5] transition-all duration-300 group-hover:opacity-85 group-hover:brightness-110"
                   />
                   <text
                      x="150"
-                     y="220"
+                     y="216"
                      textAnchor="middle"
                      dominantBaseline="middle"
-                     className="pointer-events-none fill-black font-semibold text-[14px]"
+                     className="pointer-events-none fill-white font-semibold text-[11px] drop-shadow"
                   >
                      Visualization
                   </text>
@@ -57,21 +53,32 @@ export const HomeNavbar = () => {
                <g className="group">
                   <path
                      d="M150,150 L63.4,200 A100,100 0 0,1 150,50 Z"
-                     fill="red"
-                     stroke="black"
-                     className="transition-all duration-300 group-hover:opacity-80 group-hover:scale-[1.02]"
+                     className="fill-dusty-grape-600 stroke-white stroke-[0.5] transition-all duration-300 group-hover:opacity-85 group-hover:brightness-110"
                   />
                   <text
-                     x="110"
-                     y="120"
+                     x="94"
+                     y="118"
                      textAnchor="middle"
                      dominantBaseline="middle"
-                     className="pointer-events-none fill-black font-semibold text-[14px]"
+                     transform="rotate(-60, 94, 118)"
+                     className="pointer-events-none fill-white font-semibold text-[12px] drop-shadow"
                   >
                      Games
                   </text>
                </g>
             </Link>
+
+            {/* Center circle — rendered last so it sits on top */}
+            <circle cx="150" cy="150" r="32" className="fill-gray-950 cursor-default" />
+            <text
+               x="150"
+               y="150"
+               textAnchor="middle"
+               dominantBaseline="middle"
+               className="pointer-events-none fill-white font-semibold text-[9px] tracking-widest uppercase"
+            >
+               Rhythm
+            </text>
 
             </svg>
          </nav>
@@ -108,7 +115,7 @@ export const EducationNavbar = () => {
             style={{ opacity }}
             className={`
                p-4 sticky top-0 z-50 shadow-md transition-all duration-300
-               ${opacity < 1 ? "bg-jungle-teal-600/80 backdrop-blur-xl" : "bg-jungle-teal-600"}
+               ${opacity < 1 ? "bg-deep-teal-600/80 backdrop-blur-xl" : "bg-deep-teal-600"}
                text-porcelain-50
             `}
          >
@@ -151,8 +158,8 @@ export const VisualizationNavbar = () => {
          <nav
             style={{ opacity }}
             className={`
-               p-4 sticky top-0 z-50 shadow-md transition-all duration-300
-               ${opacity < 1 ? "bg-blue-100/80 backdrop-blur-xl " : "bg-blue-100 "}
+               p-4 sticky top-0 z-50 shadow-md transition-all duration-300 text-white
+               ${opacity < 1 ? "bg-blue-slate-600/80 backdrop-blur-xl " : "bg-blue-slate-600 "}
             `}
          >
             <ul className="nav-list">
@@ -193,8 +200,8 @@ export const GameNavbar = () => {
          <nav
             style={{ opacity }}
             className={`
-               p-4 sticky top-0 z-50 shadow-md transition-all duration-300
-               ${opacity < 1 ? "bg-red-100/80 backdrop-blur-xl " : "bg-red-100   "}
+               p-4 sticky top-0 z-50 shadow-md transition-all duration-300 text-white
+               ${opacity < 1 ? "bg-dusty-grape-600/80 backdrop-blur-xl " : "bg-dusty-grape-600 "}  "}
             `}
          >
             <ul className="nav-list">
