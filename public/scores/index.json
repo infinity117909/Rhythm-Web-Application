@@ -1,11 +1,14 @@
 [
-  "BasicRockBeat1.musicxml",
-  "BossaNova1.musicxml",
-  "drumkit.musicxml",
-  "mamboNo1.musicxml",
-  "Blind Vaysha.musicxml",
-  "Basic_Swing.musicxml",
-  "TESTING.musicxml",
-  "Ballad.musicxml",
-  "Polka.musicxml"
+  
+  "Mambo.musicxml",
+  "Standard Rock Groove.musicxml",
+  "Four On The Floor.musicxml",
+  "Brazillian Bossa Nova.musicxml",
+  "Bossa Nova Rhumba Clave (2 + 3).musicxml",
+  "Bossa Nova Rhumba Clave (3 + 2).musicxml",
+  "Bossa Nova Son Clave (2 + 3).musicxml",
+  "Bossa Nova Son Clave (3 + 2).musicxml",
+  "Basic Swing (2 – 4 Feel).musicxml",
+  "Big Band Swing.musicxml"
+
 ]

@@ -18,8 +18,9 @@ import { Route as GamesIndexRouteImport } from './routes/games/index'
 import { Route as EducationIndexRouteImport } from './routes/education/index'
 import { Route as VisualizationOsmdParserRouteImport } from './routes/visualization/osmd-parser'
 import { Route as VisualizationMetronomeRouteImport } from './routes/visualization/metronome'
+import { Route as GamesWhitneyHoustonChallengeRouteImport } from './routes/games/whitney-houston-challenge'
 import { Route as GamesDrumMachineRouteImport } from './routes/games/drum-machine'
-import { Route as GamesAndIWillAlwaysLoveYouRouteImport } from './routes/games/And I Will Always Love You'
+import { Route as EducationGenresRouteRouteImport } from './routes/education/genres/route'
 import { Route as EducationGenresIndexRouteImport } from './routes/education/genres/index'
 import { Route as VisualizationRhythmsRhythmVisualRouteImport } from './routes/visualization/rhythms/rhythm-visual'
 import { Route as VisualizationRhythmsRhythmIndexRouteImport } from './routes/visualization/rhythms/RhythmIndex'
@@ -27,19 +28,19 @@ import { Route as VisualizationRhythmsRhythmIdRouteImport } from './routes/visua
 import { Route as VisualizationDVDPolyrhythmVisualizerDvdPolyrhythmVisualizerRouteImport } from './routes/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer'
 import { Route as EducationTheoryRhythmEducationRouteImport } from './routes/education/theory/rhythm-education'
 import { Route as EducationTheoryIntroductionRouteImport } from './routes/education/theory/Introduction'
-import { Route as EducationGenresRockRouteImport } from './routes/education/genres/Rock'
-import { Route as EducationGenresPunkRouteImport } from './routes/education/genres/Punk'
-import { Route as EducationGenresProgRouteImport } from './routes/education/genres/Prog'
-import { Route as EducationGenresPopRouteImport } from './routes/education/genres/Pop'
-import { Route as EducationGenresMetalRouteImport } from './routes/education/genres/Metal'
-import { Route as EducationGenresJazzRouteImport } from './routes/education/genres/Jazz'
-import { Route as EducationGenresHipHopRouteImport } from './routes/education/genres/HipHop'
 import { Route as EducationGenresGlossaryRouteImport } from './routes/education/genres/Glossary'
-import { Route as EducationGenresEDMRouteImport } from './routes/education/genres/EDM'
-import { Route as EducationGenresAfroCubanRouteImport } from './routes/education/genres/AfroCuban'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as EducationGenresPunkRockIndexRouteImport } from './routes/education/genres/punk-rock/index'
+import { Route as EducationGenresProgIndexRouteImport } from './routes/education/genres/prog/index'
+import { Route as EducationGenresPopIndexRouteImport } from './routes/education/genres/pop/index'
+import { Route as EducationGenresMetalIndexRouteImport } from './routes/education/genres/metal/index'
+import { Route as EducationGenresJazzIndexRouteImport } from './routes/education/genres/jazz/index'
+import { Route as EducationGenresHipHopIndexRouteImport } from './routes/education/genres/hip-hop/index'
+import { Route as EducationGenresEdmIndexRouteImport } from './routes/education/genres/edm/index'
+import { Route as EducationGenresClassicRockIndexRouteImport } from './routes/education/genres/classic-rock/index'
+import { Route as EducationGenresAfroCubanIndexRouteImport } from './routes/education/genres/afro-cuban/index'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
@@ -90,21 +91,26 @@ const VisualizationMetronomeRoute = VisualizationMetronomeRouteImport.update({
   path: '/metronome',
   getParentRoute: () => VisualizationRouteRoute,
 } as any)
+const GamesWhitneyHoustonChallengeRoute =
+  GamesWhitneyHoustonChallengeRouteImport.update({
+    id: '/whitney-houston-challenge',
+    path: '/whitney-houston-challenge',
+    getParentRoute: () => GamesRouteRoute,
+  } as any)
 const GamesDrumMachineRoute = GamesDrumMachineRouteImport.update({
   id: '/drum-machine',
   path: '/drum-machine',
   getParentRoute: () => GamesRouteRoute,
 } as any)
-const GamesAndIWillAlwaysLoveYouRoute =
-  GamesAndIWillAlwaysLoveYouRouteImport.update({
-    id: '/And I Will Always Love You',
-    path: '/And I Will Always Love You',
-    getParentRoute: () => GamesRouteRoute,
-  } as any)
-const EducationGenresIndexRoute = EducationGenresIndexRouteImport.update({
-  id: '/genres/',
-  path: '/genres/',
+const EducationGenresRouteRoute = EducationGenresRouteRouteImport.update({
+  id: '/genres',
+  path: '/genres',
   getParentRoute: () => EducationRouteRoute,
+} as any)
+const EducationGenresIndexRoute = EducationGenresIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EducationGenresRouteRoute,
 } as any)
 const VisualizationRhythmsRhythmVisualRoute =
   VisualizationRhythmsRhythmVisualRouteImport.update({
@@ -144,57 +150,11 @@ const EducationTheoryIntroductionRoute =
     path: '/theory/Introduction',
     getParentRoute: () => EducationRouteRoute,
   } as any)
-const EducationGenresRockRoute = EducationGenresRockRouteImport.update({
-  id: '/genres/Rock',
-  path: '/genres/Rock',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresPunkRoute = EducationGenresPunkRouteImport.update({
-  id: '/genres/Punk',
-  path: '/genres/Punk',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresProgRoute = EducationGenresProgRouteImport.update({
-  id: '/genres/Prog',
-  path: '/genres/Prog',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresPopRoute = EducationGenresPopRouteImport.update({
-  id: '/genres/Pop',
-  path: '/genres/Pop',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresMetalRoute = EducationGenresMetalRouteImport.update({
-  id: '/genres/Metal',
-  path: '/genres/Metal',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresJazzRoute = EducationGenresJazzRouteImport.update({
-  id: '/genres/Jazz',
-  path: '/genres/Jazz',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresHipHopRoute = EducationGenresHipHopRouteImport.update({
-  id: '/genres/HipHop',
-  path: '/genres/HipHop',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
 const EducationGenresGlossaryRoute = EducationGenresGlossaryRouteImport.update({
-  id: '/genres/Glossary',
-  path: '/genres/Glossary',
-  getParentRoute: () => EducationRouteRoute,
+  id: '/Glossary',
+  path: '/Glossary',
+  getParentRoute: () => EducationGenresRouteRoute,
 } as any)
-const EducationGenresEDMRoute = EducationGenresEDMRouteImport.update({
-  id: '/genres/EDM',
-  path: '/genres/EDM',
-  getParentRoute: () => EducationRouteRoute,
-} as any)
-const EducationGenresAfroCubanRoute =
-  EducationGenresAfroCubanRouteImport.update({
-    id: '/genres/AfroCuban',
-    path: '/genres/AfroCuban',
-    getParentRoute: () => EducationRouteRoute,
-  } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
@@ -210,6 +170,58 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EducationGenresPunkRockIndexRoute =
+  EducationGenresPunkRockIndexRouteImport.update({
+    id: '/punk-rock/',
+    path: '/punk-rock/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresProgIndexRoute =
+  EducationGenresProgIndexRouteImport.update({
+    id: '/prog/',
+    path: '/prog/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresPopIndexRoute = EducationGenresPopIndexRouteImport.update({
+  id: '/pop/',
+  path: '/pop/',
+  getParentRoute: () => EducationGenresRouteRoute,
+} as any)
+const EducationGenresMetalIndexRoute =
+  EducationGenresMetalIndexRouteImport.update({
+    id: '/metal/',
+    path: '/metal/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresJazzIndexRoute =
+  EducationGenresJazzIndexRouteImport.update({
+    id: '/jazz/',
+    path: '/jazz/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresHipHopIndexRoute =
+  EducationGenresHipHopIndexRouteImport.update({
+    id: '/hip-hop/',
+    path: '/hip-hop/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresEdmIndexRoute = EducationGenresEdmIndexRouteImport.update({
+  id: '/edm/',
+  path: '/edm/',
+  getParentRoute: () => EducationGenresRouteRoute,
+} as any)
+const EducationGenresClassicRockIndexRoute =
+  EducationGenresClassicRockIndexRouteImport.update({
+    id: '/classic-rock/',
+    path: '/classic-rock/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
+const EducationGenresAfroCubanIndexRoute =
+  EducationGenresAfroCubanIndexRouteImport.update({
+    id: '/afro-cuban/',
+    path: '/afro-cuban/',
+    getParentRoute: () => EducationGenresRouteRoute,
+  } as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -236,8 +248,9 @@ export interface FileRoutesByFullPath {
   '/education': typeof EducationRouteRouteWithChildren
   '/games': typeof GamesRouteRouteWithChildren
   '/visualization': typeof VisualizationRouteRouteWithChildren
-  '/games/And I Will Always Love You': typeof GamesAndIWillAlwaysLoveYouRoute
+  '/education/genres': typeof EducationGenresRouteRouteWithChildren
   '/games/drum-machine': typeof GamesDrumMachineRoute
+  '/games/whitney-houston-challenge': typeof GamesWhitneyHoustonChallengeRoute
   '/visualization/metronome': typeof VisualizationMetronomeRoute
   '/visualization/osmd-parser': typeof VisualizationOsmdParserRoute
   '/education/': typeof EducationIndexRoute
@@ -246,16 +259,7 @@ export interface FileRoutesByFullPath {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/education/genres/AfroCuban': typeof EducationGenresAfroCubanRoute
-  '/education/genres/EDM': typeof EducationGenresEDMRoute
   '/education/genres/Glossary': typeof EducationGenresGlossaryRoute
-  '/education/genres/HipHop': typeof EducationGenresHipHopRoute
-  '/education/genres/Jazz': typeof EducationGenresJazzRoute
-  '/education/genres/Metal': typeof EducationGenresMetalRoute
-  '/education/genres/Pop': typeof EducationGenresPopRoute
-  '/education/genres/Prog': typeof EducationGenresProgRoute
-  '/education/genres/Punk': typeof EducationGenresPunkRoute
-  '/education/genres/Rock': typeof EducationGenresRockRoute
   '/education/theory/Introduction': typeof EducationTheoryIntroductionRoute
   '/education/theory/rhythm-education': typeof EducationTheoryRhythmEducationRoute
   '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer': typeof VisualizationDVDPolyrhythmVisualizerDvdPolyrhythmVisualizerRoute
@@ -267,11 +271,20 @@ export interface FileRoutesByFullPath {
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
   '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  '/education/genres/afro-cuban/': typeof EducationGenresAfroCubanIndexRoute
+  '/education/genres/classic-rock/': typeof EducationGenresClassicRockIndexRoute
+  '/education/genres/edm/': typeof EducationGenresEdmIndexRoute
+  '/education/genres/hip-hop/': typeof EducationGenresHipHopIndexRoute
+  '/education/genres/jazz/': typeof EducationGenresJazzIndexRoute
+  '/education/genres/metal/': typeof EducationGenresMetalIndexRoute
+  '/education/genres/pop/': typeof EducationGenresPopIndexRoute
+  '/education/genres/prog/': typeof EducationGenresProgIndexRoute
+  '/education/genres/punk-rock/': typeof EducationGenresPunkRockIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/games/And I Will Always Love You': typeof GamesAndIWillAlwaysLoveYouRoute
   '/games/drum-machine': typeof GamesDrumMachineRoute
+  '/games/whitney-houston-challenge': typeof GamesWhitneyHoustonChallengeRoute
   '/visualization/metronome': typeof VisualizationMetronomeRoute
   '/visualization/osmd-parser': typeof VisualizationOsmdParserRoute
   '/education': typeof EducationIndexRoute
@@ -280,16 +293,7 @@ export interface FileRoutesByTo {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/education/genres/AfroCuban': typeof EducationGenresAfroCubanRoute
-  '/education/genres/EDM': typeof EducationGenresEDMRoute
   '/education/genres/Glossary': typeof EducationGenresGlossaryRoute
-  '/education/genres/HipHop': typeof EducationGenresHipHopRoute
-  '/education/genres/Jazz': typeof EducationGenresJazzRoute
-  '/education/genres/Metal': typeof EducationGenresMetalRoute
-  '/education/genres/Pop': typeof EducationGenresPopRoute
-  '/education/genres/Prog': typeof EducationGenresProgRoute
-  '/education/genres/Punk': typeof EducationGenresPunkRoute
-  '/education/genres/Rock': typeof EducationGenresRockRoute
   '/education/theory/Introduction': typeof EducationTheoryIntroductionRoute
   '/education/theory/rhythm-education': typeof EducationTheoryRhythmEducationRoute
   '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer': typeof VisualizationDVDPolyrhythmVisualizerDvdPolyrhythmVisualizerRoute
@@ -301,6 +305,15 @@ export interface FileRoutesByTo {
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
   '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/education/genres/afro-cuban': typeof EducationGenresAfroCubanIndexRoute
+  '/education/genres/classic-rock': typeof EducationGenresClassicRockIndexRoute
+  '/education/genres/edm': typeof EducationGenresEdmIndexRoute
+  '/education/genres/hip-hop': typeof EducationGenresHipHopIndexRoute
+  '/education/genres/jazz': typeof EducationGenresJazzIndexRoute
+  '/education/genres/metal': typeof EducationGenresMetalIndexRoute
+  '/education/genres/pop': typeof EducationGenresPopIndexRoute
+  '/education/genres/prog': typeof EducationGenresProgIndexRoute
+  '/education/genres/punk-rock': typeof EducationGenresPunkRockIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -308,8 +321,9 @@ export interface FileRoutesById {
   '/education': typeof EducationRouteRouteWithChildren
   '/games': typeof GamesRouteRouteWithChildren
   '/visualization': typeof VisualizationRouteRouteWithChildren
-  '/games/And I Will Always Love You': typeof GamesAndIWillAlwaysLoveYouRoute
+  '/education/genres': typeof EducationGenresRouteRouteWithChildren
   '/games/drum-machine': typeof GamesDrumMachineRoute
+  '/games/whitney-houston-challenge': typeof GamesWhitneyHoustonChallengeRoute
   '/visualization/metronome': typeof VisualizationMetronomeRoute
   '/visualization/osmd-parser': typeof VisualizationOsmdParserRoute
   '/education/': typeof EducationIndexRoute
@@ -318,16 +332,7 @@ export interface FileRoutesById {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/education/genres/AfroCuban': typeof EducationGenresAfroCubanRoute
-  '/education/genres/EDM': typeof EducationGenresEDMRoute
   '/education/genres/Glossary': typeof EducationGenresGlossaryRoute
-  '/education/genres/HipHop': typeof EducationGenresHipHopRoute
-  '/education/genres/Jazz': typeof EducationGenresJazzRoute
-  '/education/genres/Metal': typeof EducationGenresMetalRoute
-  '/education/genres/Pop': typeof EducationGenresPopRoute
-  '/education/genres/Prog': typeof EducationGenresProgRoute
-  '/education/genres/Punk': typeof EducationGenresPunkRoute
-  '/education/genres/Rock': typeof EducationGenresRockRoute
   '/education/theory/Introduction': typeof EducationTheoryIntroductionRoute
   '/education/theory/rhythm-education': typeof EducationTheoryRhythmEducationRoute
   '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer': typeof VisualizationDVDPolyrhythmVisualizerDvdPolyrhythmVisualizerRoute
@@ -339,6 +344,15 @@ export interface FileRoutesById {
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
   '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  '/education/genres/afro-cuban/': typeof EducationGenresAfroCubanIndexRoute
+  '/education/genres/classic-rock/': typeof EducationGenresClassicRockIndexRoute
+  '/education/genres/edm/': typeof EducationGenresEdmIndexRoute
+  '/education/genres/hip-hop/': typeof EducationGenresHipHopIndexRoute
+  '/education/genres/jazz/': typeof EducationGenresJazzIndexRoute
+  '/education/genres/metal/': typeof EducationGenresMetalIndexRoute
+  '/education/genres/pop/': typeof EducationGenresPopIndexRoute
+  '/education/genres/prog/': typeof EducationGenresProgIndexRoute
+  '/education/genres/punk-rock/': typeof EducationGenresPunkRockIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -347,8 +361,9 @@ export interface FileRouteTypes {
     | '/education'
     | '/games'
     | '/visualization'
-    | '/games/And I Will Always Love You'
+    | '/education/genres'
     | '/games/drum-machine'
+    | '/games/whitney-houston-challenge'
     | '/visualization/metronome'
     | '/visualization/osmd-parser'
     | '/education/'
@@ -357,16 +372,7 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
-    | '/education/genres/AfroCuban'
-    | '/education/genres/EDM'
     | '/education/genres/Glossary'
-    | '/education/genres/HipHop'
-    | '/education/genres/Jazz'
-    | '/education/genres/Metal'
-    | '/education/genres/Pop'
-    | '/education/genres/Prog'
-    | '/education/genres/Punk'
-    | '/education/genres/Rock'
     | '/education/theory/Introduction'
     | '/education/theory/rhythm-education'
     | '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer'
@@ -378,11 +384,20 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/demo/start/ssr/'
+    | '/education/genres/afro-cuban/'
+    | '/education/genres/classic-rock/'
+    | '/education/genres/edm/'
+    | '/education/genres/hip-hop/'
+    | '/education/genres/jazz/'
+    | '/education/genres/metal/'
+    | '/education/genres/pop/'
+    | '/education/genres/prog/'
+    | '/education/genres/punk-rock/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/games/And I Will Always Love You'
     | '/games/drum-machine'
+    | '/games/whitney-houston-challenge'
     | '/visualization/metronome'
     | '/visualization/osmd-parser'
     | '/education'
@@ -391,16 +406,7 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
-    | '/education/genres/AfroCuban'
-    | '/education/genres/EDM'
     | '/education/genres/Glossary'
-    | '/education/genres/HipHop'
-    | '/education/genres/Jazz'
-    | '/education/genres/Metal'
-    | '/education/genres/Pop'
-    | '/education/genres/Prog'
-    | '/education/genres/Punk'
-    | '/education/genres/Rock'
     | '/education/theory/Introduction'
     | '/education/theory/rhythm-education'
     | '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer'
@@ -412,14 +418,24 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/demo/start/ssr'
+    | '/education/genres/afro-cuban'
+    | '/education/genres/classic-rock'
+    | '/education/genres/edm'
+    | '/education/genres/hip-hop'
+    | '/education/genres/jazz'
+    | '/education/genres/metal'
+    | '/education/genres/pop'
+    | '/education/genres/prog'
+    | '/education/genres/punk-rock'
   id:
     | '__root__'
     | '/'
     | '/education'
     | '/games'
     | '/visualization'
-    | '/games/And I Will Always Love You'
+    | '/education/genres'
     | '/games/drum-machine'
+    | '/games/whitney-houston-challenge'
     | '/visualization/metronome'
     | '/visualization/osmd-parser'
     | '/education/'
@@ -428,16 +444,7 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
-    | '/education/genres/AfroCuban'
-    | '/education/genres/EDM'
     | '/education/genres/Glossary'
-    | '/education/genres/HipHop'
-    | '/education/genres/Jazz'
-    | '/education/genres/Metal'
-    | '/education/genres/Pop'
-    | '/education/genres/Prog'
-    | '/education/genres/Punk'
-    | '/education/genres/Rock'
     | '/education/theory/Introduction'
     | '/education/theory/rhythm-education'
     | '/visualization/DVD-Polyrhythm-Visualizer/DvdPolyrhythmVisualizer'
@@ -449,6 +456,15 @@ export interface FileRouteTypes {
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
     | '/demo/start/ssr/'
+    | '/education/genres/afro-cuban/'
+    | '/education/genres/classic-rock/'
+    | '/education/genres/edm/'
+    | '/education/genres/hip-hop/'
+    | '/education/genres/jazz/'
+    | '/education/genres/metal/'
+    | '/education/genres/pop/'
+    | '/education/genres/prog/'
+    | '/education/genres/punk-rock/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -530,6 +546,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisualizationMetronomeRouteImport
       parentRoute: typeof VisualizationRouteRoute
     }
+    '/games/whitney-houston-challenge': {
+      id: '/games/whitney-houston-challenge'
+      path: '/whitney-houston-challenge'
+      fullPath: '/games/whitney-houston-challenge'
+      preLoaderRoute: typeof GamesWhitneyHoustonChallengeRouteImport
+      parentRoute: typeof GamesRouteRoute
+    }
     '/games/drum-machine': {
       id: '/games/drum-machine'
       path: '/drum-machine'
@@ -537,19 +560,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesDrumMachineRouteImport
       parentRoute: typeof GamesRouteRoute
     }
-    '/games/And I Will Always Love You': {
-      id: '/games/And I Will Always Love You'
-      path: '/And I Will Always Love You'
-      fullPath: '/games/And I Will Always Love You'
-      preLoaderRoute: typeof GamesAndIWillAlwaysLoveYouRouteImport
-      parentRoute: typeof GamesRouteRoute
+    '/education/genres': {
+      id: '/education/genres'
+      path: '/genres'
+      fullPath: '/education/genres'
+      preLoaderRoute: typeof EducationGenresRouteRouteImport
+      parentRoute: typeof EducationRouteRoute
     }
     '/education/genres/': {
       id: '/education/genres/'
-      path: '/genres'
+      path: '/'
       fullPath: '/education/genres/'
       preLoaderRoute: typeof EducationGenresIndexRouteImport
-      parentRoute: typeof EducationRouteRoute
+      parentRoute: typeof EducationGenresRouteRoute
     }
     '/visualization/rhythms/rhythm-visual': {
       id: '/visualization/rhythms/rhythm-visual'
@@ -593,75 +616,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EducationTheoryIntroductionRouteImport
       parentRoute: typeof EducationRouteRoute
     }
-    '/education/genres/Rock': {
-      id: '/education/genres/Rock'
-      path: '/genres/Rock'
-      fullPath: '/education/genres/Rock'
-      preLoaderRoute: typeof EducationGenresRockRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/Punk': {
-      id: '/education/genres/Punk'
-      path: '/genres/Punk'
-      fullPath: '/education/genres/Punk'
-      preLoaderRoute: typeof EducationGenresPunkRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/Prog': {
-      id: '/education/genres/Prog'
-      path: '/genres/Prog'
-      fullPath: '/education/genres/Prog'
-      preLoaderRoute: typeof EducationGenresProgRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/Pop': {
-      id: '/education/genres/Pop'
-      path: '/genres/Pop'
-      fullPath: '/education/genres/Pop'
-      preLoaderRoute: typeof EducationGenresPopRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/Metal': {
-      id: '/education/genres/Metal'
-      path: '/genres/Metal'
-      fullPath: '/education/genres/Metal'
-      preLoaderRoute: typeof EducationGenresMetalRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/Jazz': {
-      id: '/education/genres/Jazz'
-      path: '/genres/Jazz'
-      fullPath: '/education/genres/Jazz'
-      preLoaderRoute: typeof EducationGenresJazzRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/HipHop': {
-      id: '/education/genres/HipHop'
-      path: '/genres/HipHop'
-      fullPath: '/education/genres/HipHop'
-      preLoaderRoute: typeof EducationGenresHipHopRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
     '/education/genres/Glossary': {
       id: '/education/genres/Glossary'
-      path: '/genres/Glossary'
+      path: '/Glossary'
       fullPath: '/education/genres/Glossary'
       preLoaderRoute: typeof EducationGenresGlossaryRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/EDM': {
-      id: '/education/genres/EDM'
-      path: '/genres/EDM'
-      fullPath: '/education/genres/EDM'
-      preLoaderRoute: typeof EducationGenresEDMRouteImport
-      parentRoute: typeof EducationRouteRoute
-    }
-    '/education/genres/AfroCuban': {
-      id: '/education/genres/AfroCuban'
-      path: '/genres/AfroCuban'
-      fullPath: '/education/genres/AfroCuban'
-      preLoaderRoute: typeof EducationGenresAfroCubanRouteImport
-      parentRoute: typeof EducationRouteRoute
+      parentRoute: typeof EducationGenresRouteRoute
     }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
@@ -683,6 +643,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/api/names'
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/education/genres/punk-rock/': {
+      id: '/education/genres/punk-rock/'
+      path: '/punk-rock'
+      fullPath: '/education/genres/punk-rock/'
+      preLoaderRoute: typeof EducationGenresPunkRockIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/prog/': {
+      id: '/education/genres/prog/'
+      path: '/prog'
+      fullPath: '/education/genres/prog/'
+      preLoaderRoute: typeof EducationGenresProgIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/pop/': {
+      id: '/education/genres/pop/'
+      path: '/pop'
+      fullPath: '/education/genres/pop/'
+      preLoaderRoute: typeof EducationGenresPopIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/metal/': {
+      id: '/education/genres/metal/'
+      path: '/metal'
+      fullPath: '/education/genres/metal/'
+      preLoaderRoute: typeof EducationGenresMetalIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/jazz/': {
+      id: '/education/genres/jazz/'
+      path: '/jazz'
+      fullPath: '/education/genres/jazz/'
+      preLoaderRoute: typeof EducationGenresJazzIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/hip-hop/': {
+      id: '/education/genres/hip-hop/'
+      path: '/hip-hop'
+      fullPath: '/education/genres/hip-hop/'
+      preLoaderRoute: typeof EducationGenresHipHopIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/edm/': {
+      id: '/education/genres/edm/'
+      path: '/edm'
+      fullPath: '/education/genres/edm/'
+      preLoaderRoute: typeof EducationGenresEdmIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/classic-rock/': {
+      id: '/education/genres/classic-rock/'
+      path: '/classic-rock'
+      fullPath: '/education/genres/classic-rock/'
+      preLoaderRoute: typeof EducationGenresClassicRockIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
+    }
+    '/education/genres/afro-cuban/': {
+      id: '/education/genres/afro-cuban/'
+      path: '/afro-cuban'
+      fullPath: '/education/genres/afro-cuban/'
+      preLoaderRoute: typeof EducationGenresAfroCubanIndexRouteImport
+      parentRoute: typeof EducationGenresRouteRoute
     }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
@@ -715,38 +738,49 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface EducationRouteRouteChildren {
-  EducationIndexRoute: typeof EducationIndexRoute
-  EducationGenresAfroCubanRoute: typeof EducationGenresAfroCubanRoute
-  EducationGenresEDMRoute: typeof EducationGenresEDMRoute
+interface EducationGenresRouteRouteChildren {
   EducationGenresGlossaryRoute: typeof EducationGenresGlossaryRoute
-  EducationGenresHipHopRoute: typeof EducationGenresHipHopRoute
-  EducationGenresJazzRoute: typeof EducationGenresJazzRoute
-  EducationGenresMetalRoute: typeof EducationGenresMetalRoute
-  EducationGenresPopRoute: typeof EducationGenresPopRoute
-  EducationGenresProgRoute: typeof EducationGenresProgRoute
-  EducationGenresPunkRoute: typeof EducationGenresPunkRoute
-  EducationGenresRockRoute: typeof EducationGenresRockRoute
+  EducationGenresIndexRoute: typeof EducationGenresIndexRoute
+  EducationGenresAfroCubanIndexRoute: typeof EducationGenresAfroCubanIndexRoute
+  EducationGenresClassicRockIndexRoute: typeof EducationGenresClassicRockIndexRoute
+  EducationGenresEdmIndexRoute: typeof EducationGenresEdmIndexRoute
+  EducationGenresHipHopIndexRoute: typeof EducationGenresHipHopIndexRoute
+  EducationGenresJazzIndexRoute: typeof EducationGenresJazzIndexRoute
+  EducationGenresMetalIndexRoute: typeof EducationGenresMetalIndexRoute
+  EducationGenresPopIndexRoute: typeof EducationGenresPopIndexRoute
+  EducationGenresProgIndexRoute: typeof EducationGenresProgIndexRoute
+  EducationGenresPunkRockIndexRoute: typeof EducationGenresPunkRockIndexRoute
+}
+
+const EducationGenresRouteRouteChildren: EducationGenresRouteRouteChildren = {
+  EducationGenresGlossaryRoute: EducationGenresGlossaryRoute,
+  EducationGenresIndexRoute: EducationGenresIndexRoute,
+  EducationGenresAfroCubanIndexRoute: EducationGenresAfroCubanIndexRoute,
+  EducationGenresClassicRockIndexRoute: EducationGenresClassicRockIndexRoute,
+  EducationGenresEdmIndexRoute: EducationGenresEdmIndexRoute,
+  EducationGenresHipHopIndexRoute: EducationGenresHipHopIndexRoute,
+  EducationGenresJazzIndexRoute: EducationGenresJazzIndexRoute,
+  EducationGenresMetalIndexRoute: EducationGenresMetalIndexRoute,
+  EducationGenresPopIndexRoute: EducationGenresPopIndexRoute,
+  EducationGenresProgIndexRoute: EducationGenresProgIndexRoute,
+  EducationGenresPunkRockIndexRoute: EducationGenresPunkRockIndexRoute,
+}
+
+const EducationGenresRouteRouteWithChildren =
+  EducationGenresRouteRoute._addFileChildren(EducationGenresRouteRouteChildren)
+
+interface EducationRouteRouteChildren {
+  EducationGenresRouteRoute: typeof EducationGenresRouteRouteWithChildren
+  EducationIndexRoute: typeof EducationIndexRoute
   EducationTheoryIntroductionRoute: typeof EducationTheoryIntroductionRoute
   EducationTheoryRhythmEducationRoute: typeof EducationTheoryRhythmEducationRoute
-  EducationGenresIndexRoute: typeof EducationGenresIndexRoute
 }
 
 const EducationRouteRouteChildren: EducationRouteRouteChildren = {
+  EducationGenresRouteRoute: EducationGenresRouteRouteWithChildren,
   EducationIndexRoute: EducationIndexRoute,
-  EducationGenresAfroCubanRoute: EducationGenresAfroCubanRoute,
-  EducationGenresEDMRoute: EducationGenresEDMRoute,
-  EducationGenresGlossaryRoute: EducationGenresGlossaryRoute,
-  EducationGenresHipHopRoute: EducationGenresHipHopRoute,
-  EducationGenresJazzRoute: EducationGenresJazzRoute,
-  EducationGenresMetalRoute: EducationGenresMetalRoute,
-  EducationGenresPopRoute: EducationGenresPopRoute,
-  EducationGenresProgRoute: EducationGenresProgRoute,
-  EducationGenresPunkRoute: EducationGenresPunkRoute,
-  EducationGenresRockRoute: EducationGenresRockRoute,
   EducationTheoryIntroductionRoute: EducationTheoryIntroductionRoute,
   EducationTheoryRhythmEducationRoute: EducationTheoryRhythmEducationRoute,
-  EducationGenresIndexRoute: EducationGenresIndexRoute,
 }
 
 const EducationRouteRouteWithChildren = EducationRouteRoute._addFileChildren(
@@ -754,14 +788,14 @@ const EducationRouteRouteWithChildren = EducationRouteRoute._addFileChildren(
 )
 
 interface GamesRouteRouteChildren {
-  GamesAndIWillAlwaysLoveYouRoute: typeof GamesAndIWillAlwaysLoveYouRoute
   GamesDrumMachineRoute: typeof GamesDrumMachineRoute
+  GamesWhitneyHoustonChallengeRoute: typeof GamesWhitneyHoustonChallengeRoute
   GamesIndexRoute: typeof GamesIndexRoute
 }
 
 const GamesRouteRouteChildren: GamesRouteRouteChildren = {
-  GamesAndIWillAlwaysLoveYouRoute: GamesAndIWillAlwaysLoveYouRoute,
   GamesDrumMachineRoute: GamesDrumMachineRoute,
+  GamesWhitneyHoustonChallengeRoute: GamesWhitneyHoustonChallengeRoute,
   GamesIndexRoute: GamesIndexRoute,
 }
 

@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import React, { useState, useEffect, useRef } from "react";
+import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/education/genres/')({
   component: RouteComponent,
@@ -89,23 +88,6 @@ function RouteComponent() {
             </div>
 
          </div>
-
-         <footer className="hyphens-auto bg-deep-teal-600 py-5 rounded-md">
-            <h2 className="text-center text-2xl text-porcelain-50">Genres to Explore</h2>
-            <div className="justify-items-center mt-3">
-               <ul className="flex gap-5 text-justify tracking-wide text-md text-porcelain-50">
-                  <li><Link to="/education/genres/Jazz">Jazz Music</Link></li>
-                  <li><Link to="/education/genres/AfroCuban">Afro Cuban</Link></li>
-                  <li><Link to="/education/genres/HipHop">Hip Hop</Link></li>
-                  <li><Link to="/education/genres/Metal">Metal Music</Link></li>
-                  <li><Link to="/education/genres/Rock">Rock Music</Link></li>
-                  <li><Link to="/education/genres/Punk">Punk Music</Link></li>
-                  <li><Link to="/education/genres/Prog">Prog Music</Link></li>
-                  <li><Link to="/education/genres/Pop">Pop Music</Link></li>
-                  <li><Link to="/education/genres/EDM">Electronic Dance Music</Link></li>
-               </ul>
-            </div>
-         </footer>
 
       </article>
 

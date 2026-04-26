@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/education/genres/Pop')({
+export const Route = createFileRoute('/education/genres/pop/')({
   component: RouteComponent,
 })
 
@@ -35,6 +36,48 @@ const rhythmExamples = [
 ] as const
 
 function RouteComponent() {
+  useEffect(() => {
+    const root = document.documentElement
+
+    root.style.setProperty('--education-nav-bg', 'var(--color-lavender-purple-700)')
+    root.style.setProperty('--education-nav-text', 'var(--color-banana-cream-50)')
+
+    root.style.setProperty('--genres-side-button-bg', 'var(--color-deep-pink-600)')
+    root.style.setProperty('--genres-side-button-text', 'var(--color-banana-cream-50)')
+    root.style.setProperty('--genres-side-border', 'var(--color-lavender-purple-700)')
+    root.style.setProperty('--genres-side-panel-bg', 'var(--color-banana-cream-50)')
+    root.style.setProperty('--genres-side-heading-text', 'var(--color-lavender-purple-800)')
+    root.style.setProperty('--genres-side-divider', 'var(--color-lavender-purple-300)')
+    root.style.setProperty('--genres-side-link-text', 'var(--color-lavender-purple-800)')
+    root.style.setProperty('--genres-side-link-hover-bg', 'var(--color-lavender-purple-200)')
+    root.style.setProperty('--genres-side-link-hover-text', 'var(--color-deep-pink-700)')
+
+    root.style.setProperty('--genres-footer-bg', 'var(--color-lavender-purple-700)')
+    root.style.setProperty('--genres-footer-text', 'var(--color-banana-cream-50)')
+    root.style.setProperty('--genres-footer-border', 'var(--color-deep-pink-300)')
+    root.style.setProperty('--genres-footer-link-hover-bg', 'var(--color-banana-cream-50)')
+    root.style.setProperty('--genres-footer-link-hover-text', 'var(--color-lavender-purple-800)')
+
+    return () => {
+      root.style.removeProperty('--education-nav-bg')
+      root.style.removeProperty('--education-nav-text')
+      root.style.removeProperty('--genres-side-button-bg')
+      root.style.removeProperty('--genres-side-button-text')
+      root.style.removeProperty('--genres-side-border')
+      root.style.removeProperty('--genres-side-panel-bg')
+      root.style.removeProperty('--genres-side-heading-text')
+      root.style.removeProperty('--genres-side-divider')
+      root.style.removeProperty('--genres-side-link-text')
+      root.style.removeProperty('--genres-side-link-hover-bg')
+      root.style.removeProperty('--genres-side-link-hover-text')
+      root.style.removeProperty('--genres-footer-bg')
+      root.style.removeProperty('--genres-footer-text')
+      root.style.removeProperty('--genres-footer-border')
+      root.style.removeProperty('--genres-footer-link-hover-bg')
+      root.style.removeProperty('--genres-footer-link-hover-text')
+    }
+  }, [])
+
   return (
     <article className="min-h-screen bg-banana-cream-50 px-4 py-6 text-lavender-purple-900 sm:px-6 lg:px-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:gap-5">

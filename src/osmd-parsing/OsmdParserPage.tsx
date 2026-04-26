@@ -205,18 +205,50 @@ function getNoteMidi(note: Element): number | null {
   return null
 }
 
-function parseTempo(xml: Document) {
-  const tempoSound = xml.querySelector('sound[tempo]')
-  if (tempoSound) {
-    const tempoValue = tempoSound.getAttribute('tempo')
-    if (tempoValue) return Number(tempoValue)
+function beatUnitToQuarterLength(beatUnit: string): number {
+  const unit = beatUnit.trim().toLowerCase()
+  const beatMap: Record<string, number> = {
+    whole: 4,
+    half: 2,
+    quarter: 1,
+    eighth: 0.5,
+    '16th': 0.25,
+    '32nd': 0.125,
+    '64th': 0.0625,
   }
 
-  const perMinute = xml.querySelector('per-minute')?.textContent
-  if (perMinute) return Number(perMinute)
+  return beatMap[unit] ?? 1
+}
 
-  const metronome = xml.querySelector('direction[type=metronome] metronome per-minute')?.textContent
-  if (metronome) return Number(metronome)
+function parseTempo(xml: Document) {
+  const metronome = xml.querySelector('direction-type metronome')
+  if (metronome) {
+    const perMinuteText = metronome.querySelector('per-minute')?.textContent?.trim()
+    const beatUnitText = metronome.querySelector('beat-unit')?.textContent?.trim() ?? 'quarter'
+
+    if (perMinuteText) {
+      const perMinute = Number(perMinuteText)
+      if (Number.isFinite(perMinute) && perMinute > 0) {
+        const baseBeatInQuarters = beatUnitToQuarterLength(beatUnitText)
+        const beatUnitDotCount = metronome.querySelectorAll('beat-unit-dot').length
+        const dotMultiplier = 2 - Math.pow(0.5, beatUnitDotCount)
+        return perMinute * baseBeatInQuarters * dotMultiplier
+      }
+    }
+  }
+
+  const tempoSound = xml.querySelector('sound[tempo]')
+  if (tempoSound) {
+    const tempoValue = Number(tempoSound.getAttribute('tempo'))
+    if (Number.isFinite(tempoValue) && tempoValue > 0) {
+      return tempoValue
+    }
+  }
+
+  const perMinute = Number(xml.querySelector('per-minute')?.textContent?.trim() ?? '')
+  if (Number.isFinite(perMinute) && perMinute > 0) {
+    return perMinute
+  }
 
   return 120
 }
@@ -344,6 +376,7 @@ export default function OsmdParserPage() {
 
 function OsmdParserPageInner() {
   const [selectedScore, setSelectedScore] = useState<string | null>(null)
+  const [lockedScore, setLockedScore] = useState<string | null>(null)
   const [audioEnabled, setAudioEnabled] = useState(false)
   const [audioReady, setAudioReady] = useState(false)
   const [loopEnabled, setLoopEnabled] = useState(true)
@@ -351,6 +384,7 @@ function OsmdParserPageInner() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
 
   const osmdContainerRef = useRef<HTMLDivElement | null>(null)
+  const scoreSectionRef = useRef<HTMLElement | null>(null)
   const samplerRef = useRef<Tone.Sampler | null>(null)
   const partRef = useRef<Tone.Part<DrumEvent> | null>(null)
 
@@ -371,6 +405,13 @@ function OsmdParserPageInner() {
       setSelectedScore(scoreListQuery.data[0] ?? null)
     }
   }, [scoreListQuery.data, selectedScore])
+
+  useEffect(() => {
+    if (!lockedScore || !scoreListQuery.data) return
+    if (!scoreListQuery.data.includes(lockedScore)) {
+      setLockedScore(null)
+    }
+  }, [lockedScore, scoreListQuery.data])
 
   const selectedFilePath = selectedScore ? `/scores/${selectedScore}` : null
 
@@ -398,7 +439,6 @@ function OsmdParserPageInner() {
   }, [scoreQuery.data])
 
   const { events, durationSeconds, missingNotes, tempo } = scoreResults
-  const isLoading = scoreListQuery.isLoading || scoreQuery.isFetching
   const isReadyToPlay = audioEnabled && audioReady && events.length > 0
 
   useEffect(() => {
@@ -450,22 +490,28 @@ function OsmdParserPageInner() {
     if (!samplerRef.current || events.length === 0) {
       Tone.Transport.stop()
       Tone.Transport.cancel(0)
+      Tone.Transport.loop = false
       setTransportState('stopped')
       return
     }
 
+    // Set BPM before constructing the part so scheduling is based on the target tempo.
+    Tone.Transport.bpm.cancelScheduledValues(0)
+    Tone.Transport.bpm.value = tempo
+
     const part = new Tone.Part<DrumEvent>((time, value) => {
       const noteKey = Tone.Frequency(value.midi, 'midi').toNote()
-      console.log(`Triggering MIDI ${value.midi} at time ${time.toFixed(3)}s with velocity ${value.velocity} and duration ${value.duration.toFixed(3)}s`)
-      samplerRef.current?.triggerAttackRelease(noteKey, value.duration, time, value.velocity)
+      console.log(`Triggering MIDI ${value.midi} at time ${time.toFixed(3)}s with velocity ${value.velocity}`)
+      samplerRef.current?.triggerAttack(noteKey, time, value.velocity)
     }, events)
 
     part.start(0)
+    part.loop = loopEnabled && durationSeconds > 0
+    part.loopStart = '0s'
+    part.loopEnd = `${durationSeconds}s`
+
     partRef.current = part
-    Tone.Transport.bpm.value = tempo
-    Tone.Transport.loop = loopEnabled && durationSeconds > 0
-    Tone.Transport.loopStart = 0
-    Tone.Transport.loopEnd = `${durationSeconds}s`
+    Tone.Transport.loop = false
 
     return () => {
       part.stop()
@@ -492,7 +538,13 @@ function OsmdParserPageInner() {
     }
   }
 
-  const handlePlay = async () => {
+  const handlePlayPauseToggle = async () => {
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.pause()
+      setTransportState('paused')
+      return
+    }
+
     if (!selectedScore) return
     if (!audioEnabled) {
       await handleEnableAudio()
@@ -502,6 +554,7 @@ function OsmdParserPageInner() {
     if (Tone.Transport.state === 'paused') {
       Tone.Transport.start()
       setTransportState('started')
+      scoreSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       return
     }
 
@@ -509,13 +562,7 @@ function OsmdParserPageInner() {
     Tone.Transport.seconds = 0
     Tone.Transport.start()
     setTransportState('started')
-  }
-
-  const handlePause = () => {
-    if (Tone.Transport.state === 'started') {
-      Tone.Transport.pause()
-      setTransportState('paused')
-    }
+    scoreSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   const handleRestart = async () => {
@@ -528,6 +575,7 @@ function OsmdParserPageInner() {
     Tone.Transport.seconds = 0
     Tone.Transport.start()
     setTransportState('started')
+    scoreSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
@@ -548,6 +596,38 @@ function OsmdParserPageInner() {
       </header>
 
       <main className="flex-1 flex flex-col gap-6 p-4 md:p-6 max-w-7xl mx-auto w-full">
+        {/* Instructions + Warnings */}
+        <section className="grid gap-6 lg:grid-cols-[1fr_300px]">
+          <aside className="flex flex-col gap-4 rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
+            <h2 className="text-lg font-semibold text-shadow-grey-900 border-b border-pale-sky-300 pb-2">How to Use</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm text-shadow-grey-900 leading-relaxed">
+              <li>Click <strong>Enable Audio</strong> to unlock browser audio.</li>
+              <li>Choose a MusicXML score from the dropdown.</li>
+              <li>Press <strong>Play</strong> to hear the drum pattern from the score.</li>
+              <li>Use the <strong>Play/Pause</strong> toggle and <strong>Restart</strong> to control playback.</li>
+              <li>Toggle <strong>Loop</strong> to repeat the drum pattern automatically.</li>
+            </ol>
+            <div className="mt-auto rounded-xl bg-pale-sky-300/40 p-3 text-xs text-blue-slate-600 leading-relaxed">
+              <strong>Note:</strong> Notation is rendered with OpenSheetMusicDisplay. Drum samples are loaded from <code>/drums/</code>.
+            </div>
+          </aside>
+
+          <aside className="flex flex-col gap-4 rounded-2xl bg-shadow-grey-900 p-5 text-azure-mist-50">
+            <h3 className="text-lg font-semibold tracking-wide border-b border-blue-slate-600 pb-2">Warnings</h3>
+            <p className="text-xs text-pale-sky-300 leading-relaxed">Notes without a matching drum sample are skipped during playback.</p>
+            {missingNotes.length > 0 ? (
+              <div className="rounded-xl bg-blue-slate-600/30 border border-blue-slate-600 p-4 text-sm text-azure-mist-50">
+                <p className="font-semibold text-xs uppercase tracking-widest text-pale-sky-300 mb-2">Missing sample mapping</p>
+                <p className="text-xs leading-6">{missingNotes.join(', ')}</p>
+              </div>
+            ) : (
+              <div className="rounded-xl bg-pale-sky-300/25 border border-pale-sky-300 p-4 text-sm text-azure-mist-50">
+                All note pitches mapped to drum samples.
+              </div>
+            )}
+          </aside>
+        </section>
+
         {/* Controls card */}
         <section className="rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
@@ -568,19 +648,11 @@ function OsmdParserPageInner() {
               </button>
               <button
                 type="button"
-                onClick={handlePlay}
-                disabled={!isReadyToPlay}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isReadyToPlay ? 'bg-shadow-grey-900 text-azure-mist-50 hover:bg-blue-slate-600' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
+                onClick={handlePlayPauseToggle}
+                disabled={!selectedScore || events.length === 0}
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${transportState === 'started' || isReadyToPlay ? 'bg-shadow-grey-900 text-azure-mist-50 hover:bg-blue-slate-600' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
               >
-                {transportState === 'paused' ? 'Resume' : '▶ Play'}
-              </button>
-              <button
-                type="button"
-                onClick={handlePause}
-                disabled={Tone.Transport.state !== 'started'}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${Tone.Transport.state === 'started' ? 'bg-blue-slate-600 text-azure-mist-50 hover:bg-pale-sky-300 hover:text-shadow-grey-900' : 'bg-blue-slate-600/30 text-blue-slate-600'}`}
-              >
-                ‖ Pause
+                {transportState === 'started' ? '‖ Pause' : transportState === 'paused' ? '▶ Resume' : '▶ Play'}
               </button>
               <button
                 type="button"
@@ -597,20 +669,42 @@ function OsmdParserPageInner() {
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <div className="rounded-xl border border-pale-sky-300 bg-azure-mist-50/70 p-4">
               <p className="text-xs uppercase tracking-widest text-pale-sky-300 font-semibold mb-3">Score</p>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <label className="min-w-[5rem] text-sm font-semibold text-shadow-grey-900">File</label>
-                <select
-                  value={selectedScore ?? ''}
-                  onChange={(event) => setSelectedScore(event.target.value)}
-                  disabled={scoreListQuery.isLoading || !!scoreListQuery.error}
-                  className="w-full rounded-lg border border-pale-sky-300 bg-azure-mist-50 px-3 py-2 text-shadow-grey-900 outline-none transition focus:border-blue-slate-600"
-                >
-                  {scoreListQuery.data?.map((score) => (
-                    <option key={score} value={score}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-2">
+                {scoreListQuery.data?.map((score) => {
+                  const isActive = selectedScore === score
+                  const isLocked = lockedScore === score
+                  const otherLocked = lockedScore !== null && lockedScore !== score
+
+                  return (
+                    <button
+                      key={score}
+                      type="button"
+                      onClick={() => {
+                        if (otherLocked) return
+                        if (isLocked) {
+                          if (Tone.Transport.state === 'started') {
+                            Tone.Transport.pause()
+                            setTransportState('paused')
+                          }
+                          setLockedScore(null)
+                          return
+                        }
+
+                        // Selecting a new score should always start fresh from time 0.
+                        Tone.Transport.stop()
+                        Tone.Transport.seconds = 0
+                        setTransportState('stopped')
+
+                        setSelectedScore(score)
+                        setLockedScore(score)
+                      }}
+                      disabled={scoreListQuery.isLoading || !!scoreListQuery.error || otherLocked}
+                      className={`rounded-lg border px-3 py-2 text-left text-sm transition ${isActive ? 'border-blue-slate-600 bg-blue-slate-600 text-azure-mist-50' : 'border-pale-sky-300 bg-azure-mist-50 text-shadow-grey-900'} ${otherLocked ? 'cursor-not-allowed bg-shadow-grey-300 text-shadow-grey-700 opacity-60' : 'hover:border-blue-slate-600 hover:bg-azure-mist-100'} ${isLocked ? 'ring-2 ring-blue-slate-600 ring-offset-1 ring-offset-azure-mist-50/70' : ''}`}
+                    >
                       {score}
-                    </option>
-                  ))}
-                </select>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -647,40 +741,8 @@ function OsmdParserPageInner() {
           ) : null}
         </section>
 
-        {/* Instructions + Warnings */}
-        <section className="grid gap-6 lg:grid-cols-[1fr_300px]">
-          <aside className="flex flex-col gap-4 rounded-2xl border-2 border-pale-sky-300 bg-azure-mist-50/60 p-5">
-            <h2 className="text-lg font-semibold text-shadow-grey-900 border-b border-pale-sky-300 pb-2">How to Use</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-shadow-grey-900 leading-relaxed">
-              <li>Click <strong>Enable Audio</strong> to unlock browser audio.</li>
-              <li>Choose a MusicXML score from the dropdown.</li>
-              <li>Press <strong>Play</strong> to hear the drum pattern from the score.</li>
-              <li>Use <strong>Pause</strong> and <strong>Restart</strong> to control playback.</li>
-              <li>Toggle <strong>Loop</strong> to repeat the drum pattern automatically.</li>
-            </ol>
-            <div className="mt-auto rounded-xl bg-pale-sky-300/40 p-3 text-xs text-blue-slate-600 leading-relaxed">
-              <strong>Note:</strong> Notation is rendered with OpenSheetMusicDisplay. Drum samples are loaded from <code>/drums/</code>.
-            </div>
-          </aside>
-
-          <aside className="flex flex-col gap-4 rounded-2xl bg-shadow-grey-900 p-5 text-azure-mist-50">
-            <h3 className="text-lg font-semibold tracking-wide border-b border-blue-slate-600 pb-2">Warnings</h3>
-            <p className="text-xs text-pale-sky-300 leading-relaxed">Notes without a matching drum sample are skipped during playback.</p>
-            {missingNotes.length > 0 ? (
-              <div className="rounded-xl bg-blue-slate-600/30 border border-blue-slate-600 p-4 text-sm text-azure-mist-50">
-                <p className="font-semibold text-xs uppercase tracking-widest text-pale-sky-300 mb-2">Missing sample mapping</p>
-                <p className="text-xs leading-6">{missingNotes.join(', ')}</p>
-              </div>
-            ) : (
-              <div className="rounded-xl bg-pale-sky-300/25 border border-pale-sky-300 p-4 text-sm text-azure-mist-50">
-                All note pitches mapped to drum samples.
-              </div>
-            )}
-          </aside>
-        </section>
-
         {/* Score preview */}
-        <section className="rounded-2xl border-2 border-pale-sky-300 bg-white/45 p-4 md:p-6">
+        <section ref={scoreSectionRef} className="rounded-2xl border-2 border-pale-sky-300 bg-white/45 p-4 md:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-2xl font-semibold text-shadow-grey-900 tracking-wide">Score Preview</h2>

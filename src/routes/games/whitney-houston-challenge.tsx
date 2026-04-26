@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import YouTubeTomDetector from "@/whitney-houston-challenge/YouTubeTomDetector";
 
-export const Route = createFileRoute("/games/And I Will Always Love You")({
+export const Route = createFileRoute("/games/whitney-houston-challenge")({
   component: RouteComponent
 });
 
