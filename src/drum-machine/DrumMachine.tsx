@@ -12,6 +12,7 @@ import * as Tone from 'tone'
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { instrumentList } from './sampleMap'
 import { Play, Pause, VolumeX, Volume2 } from 'lucide-react'
+import { ToneExportButton } from './ToneExportButton'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -75,6 +76,8 @@ const drumKitPresets = [
     ],
   },
 ]
+
+
 
 // Preset kit definitions are used by the instrument selection page
 // to load a set of instrument keys and replace the current selection.
@@ -414,6 +417,8 @@ function DrumMachineInner() {
     })
   }
 
+  
+
   const handleEnableAudio = async () => {
     if (!selectedInstruments.length) {
       console.warn('No selected instruments to enable audio for')
@@ -622,6 +627,17 @@ function DrumMachineInner() {
               >
                 Reset Grid
               </button>
+              <ToneExportButton
+                bpm={bpm}
+                measures={measures}
+                subdivisions={subdivisions}
+                tempoMode={tempoMode}
+                pattern={pattern}
+                selectedInstruments={selectedInstruments}
+                selectedSampleFiles={selectedSampleFiles}
+                muteStates={muteStates}
+                volumeStates={volumeStates}
+              />
             </div>
             <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-dusty-lavender-200)]">
               <span>{audioUnlocked ? 'Audio is enabled and ready to play.' : 'Enable audio first to allow Tone playback.'}</span>
