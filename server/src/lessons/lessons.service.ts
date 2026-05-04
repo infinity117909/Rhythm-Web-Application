@@ -2,10 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service.js';
 //import { Lesson, Prisma } from '../../prisma/generated/prisma/client.js';
 
+/**
+ * Service layer for the Lessons feature module.
+ *
+ * Provides data access methods for `Lesson` records stored in PostgreSQL.
+ * Currently returns a hardcoded stub while full Prisma integration is pending.
+ * The commented-out methods below show the intended Prisma CRUD API.
+ */
 @Injectable()
 export class LessonsService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Returns a lesson by its numeric ID.
+   *
+   * @todo Replace stub with `this.prisma.lesson.findUnique({ where: { id } })`
+   *       once the Prisma integration is complete.
+   *
+   * @returns A hardcoded lesson object for development/testing purposes.
+   */
   getLessonById() {
     return {
       id: 1,

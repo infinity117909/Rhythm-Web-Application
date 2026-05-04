@@ -6,12 +6,29 @@
  * The instrument key is used throughout the drum machine as a unique
  * identifier for selecting instruments and loading sample audio.
  */
+
+/**
+ * Describes a single drum or percussion sample available in the drum machine.
+ *
+ * @property key  - Unique identifier matching the FatBoy soundfont filename stem
+ *                  (e.g. `"B1"` → `B1.mp3`). Used as the `Tone.Players` key.
+ * @property file - MP3 filename (e.g. `"B1.mp3"`) served from `/drums/`.
+ * @property name - Human-readable display name shown in the instrument selector UI.
+ */
 export interface DrumInstrument {
   key: string
   file: string
   name: string
 }
 
+/**
+ * Complete catalog of all 57 drum and percussion instruments available
+ * in the drum machine, sourced from the FatBoy General MIDI soundfont.
+ *
+ * Includes standard GM percussion (kick, snare, hi-hat, cymbals, toms),
+ * extended latin percussion (bongos, congas, timbales, etc.), and
+ * custom non-GM samples (metronome clicks, triangle, china cymbals).
+ */
 export const instrumentList: DrumInstrument[] = [
   { key: 'A1', file: 'A1.mp3', name: 'Metronome Accent' },
   { key: 'Ab1', file: 'Ab1.mp3', name: 'Metronome Sub' },
@@ -71,6 +88,16 @@ export const instrumentList: DrumInstrument[] = [
   { key: 'Eb6', file: 'Eb6.mp3', name: 'Concert Tom 2' },
 ]
 
+/**
+ * Convenience lookup map derived from {@link instrumentList}.
+ * Maps each instrument `key` directly to its MP3 `file` string.
+ *
+ * Used by `DrumMachine` and `ToneExportButton` to build the `Tone.Players`
+ * URL map without iterating the full `instrumentList` array.
+ *
+ * @example
+ * sampleFiles["B1"] // → "B1.mp3"
+ */
 export const sampleFiles = Object.fromEntries(
   instrumentList.map((instrument) => [instrument.key, instrument.file]),
 ) as Record<string, string>

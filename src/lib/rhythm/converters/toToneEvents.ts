@@ -1,7 +1,15 @@
 import { DrumPattern } from "../types";
 
+/**
+ * A drum event formatted for the Tone.js Transport scheduler.
+ *
+ * @property time       - Tone.js transport-style time string in `"measure:beat:sixteenth"` format.
+ *                        Example: `"0:1:2"` = measure 0, beat 1, sixteenth 2.
+ * @property instrument - The drum voice to trigger (maps to a sample key).
+ * @property duration   - Duration of the note in musical units.
+ * @property velocity   - Optional accent level in the range 0.0–1.0.
+ */
 export interface ToneEvent {
-   // transport-style time string for scheduling (e.g., "0:1:2")
    time: string;
    instrument: string;
    duration: number;
@@ -9,9 +17,23 @@ export interface ToneEvent {
 }
 
 /**
- * Convert internal beat-offset notes into transport-style time strings.
- * This function does NOT convert to seconds — that conversion is done at
- * the audio scheduling boundary (PatternTransport).
+ * Converts the beat-offset notes of a {@link DrumPattern} into Tone.js
+ * transport-style time strings suitable for `Transport.scheduleRepeat`.
+ *
+ * Time conversion formula:
+ * - `beat`      = `Math.floor(note.time)`        — integer beat number
+ * - `sixteenth` = `Math.round((note.time % 1) * 4)` — 16th-note offset
+ * - Result:     `"0:<beat>:<sixteenth>"`
+ *
+ * @remarks This function does **not** convert to seconds. Seconds conversion
+ * happens at the audio scheduling boundary (e.g., `PatternTransport`).
+ *
+ * @param pattern - The source drum pattern.
+ * @returns Array of {@link ToneEvent} objects ready for Transport scheduling.
+ *
+ * @example
+ * // DrumNote { time: 1.5 } → ToneEvent { time: "0:1:2" }
+ * const events = patternToToneEvents(myPattern);
  */
 export function patternToToneEvents(pattern: DrumPattern): ToneEvent[] {
    return pattern.notes.map((n) => {

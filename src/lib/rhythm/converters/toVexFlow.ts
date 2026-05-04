@@ -1,7 +1,14 @@
 import { DrumNote, DrumPattern, DrumInstrument } from "../types";
 import Vex, { StaveNote, Beam, Voice, NoteStruct, KeySignature } from "vexflow";
 
-// Creates a key-value pair of type DrumInstruments and their locations on the stave
+/**
+ * Maps each {@link DrumInstrument} to its VexFlow staff position key and optional
+ * notehead style. Instruments that use an "x" notehead (e.g. hi-hat, ride, crash)
+ * are rendered with `notehead: "x"` to follow standard percussion notation.
+ *
+ * @example
+ * DRUM_MAP["hihat"] // → { key: "f/5", notehead: "x" }
+ */
 const DRUM_MAP: Record<
    DrumInstrument,
    { key: string; line?: number; notehead?: string; stem?: number }
@@ -14,16 +21,29 @@ const DRUM_MAP: Record<
    crash: { key: "cx/6", notehead: "x" },
 };
 
-// Contains all of the beats per measure
+/**
+ * Represents a single measure of notation produced by {@link patternToVexFlowMeasures}.
+ *
+ * @property index       - Zero-based measure number within the pattern.
+ * @property notes       - VexFlow `StaveNote` objects for all beats in this measure.
+ * @property beams       - VexFlow `Beam` objects for grouping eighth/sixteenth notes.
+ * @property uniqueTimes - Sorted array of distinct beat-time values present in the measure.
+ */
 export interface VexMeasure {
    index: number;
    notes: StaveNote[];
-   beams: Beam[]; // how each note 
+   beams: Beam[];
    uniqueTimes: number[];
 }
 
 
-// Takes the pattern from the json file and returns an iterable array of the notes and their indexes
+/**
+ * Groups the notes of a {@link DrumPattern} into measures.
+ *
+ * @param pattern         - The source drum pattern.
+ * @param beatsPerMeasure - Number of quarter-note beats per measure. Defaults to 4.
+ * @returns Array of `{ index, notes }` objects sorted by measure index.
+ */
 function patternToMeasures(
    pattern: DrumPattern,
    beatsPerMeasure = 4
@@ -42,6 +62,13 @@ function patternToMeasures(
 }
 
 
+/**
+ * Builds a VexFlow `NoteStruct` for a chord of simultaneous drum hits.
+ *
+ * @param instruments - List of drum voices sounding at the same time.
+ * @param duration    - VexFlow duration string (e.g. `"q"` = quarter, `"8"` = eighth). Defaults to `"8"`.
+ * @returns A `NoteStruct` ready to be passed to `new StaveNote()`.
+ */
 function makeDrumNoteStruct(
    instruments: DrumInstrument[],
    duration: string = "8"
@@ -52,6 +79,17 @@ function makeDrumNoteStruct(
    };
 }
 
+/**
+ * Converts a {@link DrumPattern} into an array of {@link VexMeasure} objects
+ * suitable for rendering on a VexFlow `Stave`.
+ *
+ * Notes at the same beat time are stacked into a single chord `StaveNote`.
+ * Dynamic beaming is generated automatically via `Beam.generateBeams`.
+ *
+ * @param pattern         - The source drum pattern.
+ * @param beatsPerMeasure - Number of quarter-note beats per measure. Defaults to 4.
+ * @returns Array of {@link VexMeasure} objects, one per measure.
+ */
 export function patternToVexFlowMeasures(
    pattern: DrumPattern,
    beatsPerMeasure = 4
@@ -99,6 +137,17 @@ export function patternToVexFlowMeasures(
 }
 
 
+/**
+ * Converts a {@link DrumPattern} into a flat array of VexFlow `StaveNote` objects
+ * without measure grouping. Useful for single-measure or simplified rendering.
+ *
+ * Notes at the same beat time are stacked into a chord. Instruments that use
+ * an `"x"` notehead (hi-hat, ride, crash) receive a VexFlow `Annotation` to
+ * render the correct percussive notehead symbol.
+ *
+ * @param pattern - The source drum pattern.
+ * @returns Object with a `notes` array of `StaveNote` instances.
+ */
 export function patternToVexFlowNotes(pattern: DrumPattern) {
    const groups = new Map<number, DrumNote[]>();
 

@@ -1,6 +1,24 @@
 // import * as OSMD from 'opensheetmusicdisplay';
 // const { OpenSheetMusicDisplay } = OSMD;
 
+/**
+ * Authoritative mapping from General MIDI percussion note numbers to
+ * FatBoy soundfont sample key strings used throughout the application.
+ *
+ * Covers:
+ * - Standard GM percussion (MIDI 35–83)
+ * - Custom / extended samples (MIDI 84–92) such as metronome clicks and
+ *   additional cymbals not found in the GM specification
+ *
+ * Used by:
+ * - {@link BPMCursorController} — resolves OSMD `fixedKey` → sample key
+ * - {@link playMusicXMLDrums} — resolves instrument ID → MIDI → sample key
+ * - `MusicPlayer` component — resolves graphical note MIDI → sample key
+ *
+ * @example
+ * const key = DRUM_MIDI_TO_SAMPLE[36]; // → "C2" (Bass Drum 1)
+ * drumEngine.play(key);
+ */
 export const DRUM_MIDI_TO_SAMPLE: Record<number, string> = {
    // --- Custom (Non‑GM) Drum Samples ---
    84: "A1",   // metronome-click-accent

@@ -1,12 +1,33 @@
 import * as Tone from "tone";
 
+/**
+ * A map of drum instrument names to a pool of `Tone.Player` instances.
+ * Multiple players per instrument allow simultaneous trigger events on the
+ * same voice (polyphony) without cutting off a currently playing hit.
+ *
+ * @example
+ * const map: DrumSampleMap = {
+ *   kick:  [Player, Player, Player],
+ *   snare: [Player, Player, Player],
+ * };
+ */
 export type DrumSampleMap = Record<string, Tone.Player[]>;
 
 /**
- * Load drum samples and create a small pool per instrument so multiple
- * simultaneous triggers for the same instrument can be played (polyphony).
+ * Loads drum sample MP3s from the FatBoy soundfont server and creates a small
+ * pool of `Tone.Player` instances per instrument to support polyphonic playback.
  *
- * poolSize: number of players to create per instrument (round-robin used).
+ * Samples are served from:
+ * `http://localhost:8080/samples/soundfonts/FatBoy/percussion-mp3/`
+ *
+ * @param poolSize - Number of `Tone.Player` instances to create per instrument.
+ *                   A larger pool reduces the chance of a hit being skipped on
+ *                   rapid re-triggers. Defaults to `3`.
+ * @returns A resolved {@link DrumSampleMap} with all audio buffers loaded.
+ *
+ * @example
+ * const samples = await loadDrumSamples(4);
+ * samples["kick"][0].start(); // trigger kick
  */
 export async function loadDrumSamples(poolSize = 3): Promise<DrumSampleMap> {
    const base = "http://localhost:8080/samples/soundfonts/FatBoy/percussion-mp3/";

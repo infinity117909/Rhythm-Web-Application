@@ -4,6 +4,27 @@ import { INSTRUMENT_ID_TO_MIDI } from "./instrumentToMidi";
 import { DRUM_MIDI_TO_SAMPLE } from "@/utils/MIDIMapper";
 import { drumEngine } from "@/utils/DrumEngine";
 
+/**
+ * Orchestrates end-to-end MusicXML drum playback by resolving notes from the
+ * parsed document and scheduling them through the Tone.js Transport.
+ *
+ * Playback pipeline:
+ * 1. Calls {@link extractDrumNotes} to get the flat note sequence.
+ * 2. Reads `<divisions>` (subdivisions per quarter note) and `<sound tempo>`
+ *    from the XML document to compute the seconds-per-division ratio.
+ * 3. For each note, resolves:
+ *    - `instrumentId` → MIDI number via {@link INSTRUMENT_ID_TO_MIDI}
+ *    - MIDI number → sample key via {@link DRUM_MIDI_TO_SAMPLE}
+ * 4. Schedules each sample hit with `Tone.Transport.scheduleOnce` at the
+ *    correct absolute time offset from `Tone.now()`.
+ * 5. Starts the Tone.js Transport.
+ *
+ * @param xml - A parsed MusicXML `Document` produced by {@link parseMusicXML}.
+ *
+ * @example
+ * const doc = parseMusicXML(await loadMusicXML("/scores/Basic Swing.musicxml"));
+ * await playMusicXMLDrums(doc);
+ */
 export async function playMusicXMLDrums(xml: Document) {
   const notes = extractDrumNotes(xml);
 

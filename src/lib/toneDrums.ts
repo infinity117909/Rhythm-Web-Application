@@ -1,14 +1,34 @@
 import * as Tone from "tone";
 
+/**
+ * A single drum playback event derived from an OSMD score or pattern.
+ *
+ * @property time     - Absolute offset in seconds from the start of playback.
+ * @property midi     - General MIDI percussion note number (35–92).
+ *                      Use {@link DRUM_MIDI_TO_SAMPLE} to resolve to a sample key.
+ * @property velocity - Optional accent level in the range 0.0–1.0.
+ */
 export type DrumEvent = {
-  time: number; // seconds from start
+  time: number;
   midi: number;
   velocity?: number;
 };
 
+/** Singleton `Tone.Sampler` instance. Initialised once by {@link initDrumSampler}. */
 let sampler: Tone.Sampler | null = null;
+/** Tracks whether `Tone.start()` has already been called. */
 let started = false;
 
+/**
+ * Initialises and returns the singleton `Tone.Sampler` keyed by GM MIDI
+ * percussion note numbers (35–92) plus custom notes (84–92).
+ *
+ * Samples are served as MP3 files from `/drums/` (relative to the document
+ * root, i.e. `public/drums/`). Subsequent calls return the cached instance
+ * without reloading.
+ *
+ * @returns The ready-to-use `Tone.Sampler` after all audio buffers have loaded.
+ */
 export async function initDrumSampler() {
   if (sampler) return sampler;
 
@@ -91,6 +111,10 @@ export async function initDrumSampler() {
   return sampler;
 }
 
+/**
+ * Unlocks the Web Audio context on the first call (required after a user gesture
+ * in browsers that block auto-playing audio). Subsequent calls are no-ops.
+ */
 export async function startAudioContext() {
   if (!started) {
     await Tone.start();
@@ -98,6 +122,22 @@ export async function startAudioContext() {
   }
 }
 
+/**
+ * Schedules and plays a sequence of drum events using the singleton
+ * `Tone.Sampler`. Each event is triggered relative to `Tone.now()` using
+ * `sampler.triggerAttackRelease`.
+ *
+ * Initialises the sampler and unlocks the audio context if not already done.
+ *
+ * @param events - Array of {@link DrumEvent} objects describing MIDI note,
+ *                 time offset (seconds), and optional velocity.
+ *
+ * @example
+ * await playDrumPattern([
+ *   { time: 0.0, midi: 36, velocity: 1.0 }, // kick on beat 1
+ *   { time: 0.5, midi: 42, velocity: 0.7 }, // hi-hat on the "and"
+ * ]);
+ */
 export async function playDrumPattern(events: DrumEvent[]) {
   if (!sampler) {
     await initDrumSampler();

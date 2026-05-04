@@ -4,15 +4,44 @@ import * as Tone from "tone";
 import { DRUM_MIDI_TO_SAMPLE } from "@/utils/MIDIMapper";
 import { drumEngine } from '../utils/DrumEngine';
 
+/**
+ * Internal representation of OSMD sub-instrument MIDI metadata.
+ * Extracted from the `<midi-instrument>` elements of a MusicXML file.
+ *
+ * @property id             - Sub-instrument id string (e.g. `"P1-X1"`).
+ * @property name           - Human-readable instrument name.
+ * @property midiProgram    - OSMD MIDI instrument reference.
+ * @property unpitchedNote  - GM unpitched MIDI note number (e.g. 55 for splash).
+ * @property volume         - Linear volume 0.0–1.0 (sourced from MusicXML `<volume>`).
+ * @property pan            - Stereo pan position -1.0 (left) to 1.0 (right).
+ */
 interface XmlDrumData {
-   id: string, // e.g., "P1-X1", "P1-X4", etc.
-   name: string,
-   midiProgram: OSMD.MidiInstrument,
-   unpitchedNote: number, // Your midi-unpitched values (all 55)
-   volume: number, // 0.6299 (80/127)
-   pan: number // 0.0
+   id: string;
+   name: string;
+   midiProgram: OSMD.MidiInstrument;
+   unpitchedNote: number;
+   volume: number;
+   pan: number;
 }
 
+/**
+ * Drives OSMD cursor-step playback synchronised to a live BPM clock.
+ *
+ * On each tick of the internal interval, the controller:
+ * 1. Reads the notes under the current cursor position via `NotesUnderCursor()`.
+ * 2. Resolves each note’s sub-instrument `fixedKey` to a GM MIDI number.
+ * 3. Looks up the matching sample key in {@link DRUM_MIDI_TO_SAMPLE}.
+ * 4. Triggers the sample through the {@link drumEngine} singleton.
+ * 5. Advances the OSMD cursor to the next position.
+ *
+ * @example
+ * const controller = new BPMCursorController(osmdInstance, osmdInstance.Sheet);
+ * controller.setBPM(120);
+ * controller.setLoop(true);
+ * controller.start();
+ * // Later:
+ * controller.stop();
+ */
 export class BPMCursorController {
    private osmd: OSMD.OpenSheetMusicDisplay;
    private sheet: OSMD.MusicSheet;
@@ -24,11 +53,30 @@ export class BPMCursorController {
 
    private loop: boolean = false;
 
+   /**
+    * Enables or disables automatic cursor looping.
+    * When `true`, the cursor resets to measure 1 after reaching the end of the score.
+    *
+    * @param loop - `true` to enable looping, `false` to stop at the end.
+    */
    public setLoop(loop: boolean) {
       this.loop = loop;
    }
 
 
+   /**
+    * Reads the notes currently under the OSMD cursor, resolves each one to a
+    * drum sample key, and triggers playback via the {@link drumEngine} singleton.
+    *
+    * Resolution chain:
+    * `OSMD Note.PlaybackInstrumentId` → `SubInstrument.fixedKey` (MIDI number)
+    * → {@link DRUM_MIDI_TO_SAMPLE} key → `drumEngine.play(key, volumeMultiplier)`
+    *
+    * Accented notes (detected via `VoiceEntry.isAccent()`) are played with a
+    * volume multiplier of `5` to simulate a harder hit.
+    *
+    * @returns Array of sample key strings that were triggered on this tick.
+    */
    private getToneNotesFromCursor(): string[] {
       const notes = this.cursor.NotesUnderCursor();
       const result: string[] = [];
@@ -107,6 +155,16 @@ export class BPMCursorController {
 
 
 
+   /**
+    * Creates a new `BPMCursorController` for the given OSMD instance.
+    *
+    * Reads `sheet.DefaultStartTempoInBpm` to initialise the BPM if available.
+    * Configures the OSMD cursor with a green standard-type cursor that follows
+    * the current position.
+    *
+    * @param osmd  - The loaded `OpenSheetMusicDisplay` instance.
+    * @param sheet - The `MusicSheet` belonging to `osmd` (i.e. `osmd.Sheet`).
+    */
    constructor(osmd: OSMD.OpenSheetMusicDisplay, sheet: OSMD.MusicSheet) {
       this.osmd = osmd;
       this.cursor = osmd.cursor;
@@ -124,6 +182,16 @@ export class BPMCursorController {
       }
    }
 
+   /**
+    * Starts cursor-driven drum playback from the beginning of the score.
+    *
+    * Sets up a `setInterval` at `60000 / BPM / 2` milliseconds. On each tick:
+    * - If the end of the score is reached and looping is enabled, the cursor resets.
+    * - Otherwise, `getToneNotesFromCursor()` fires the current beat’s samples and
+    *   the cursor advances to the next position.
+    *
+    * Calling `start()` while already playing is a no-op.
+    */
    public start() {
       if (this.isPlaying) return;
 
@@ -151,6 +219,10 @@ export class BPMCursorController {
 
 
 
+   /**
+    * Stops playback and clears the internal interval.
+    * The cursor position is preserved so playback can be inspected after stopping.
+    */
    public stop() {
       this.isPlaying = false;
       if (this.intervalId) {
@@ -159,6 +231,14 @@ export class BPMCursorController {
       }
    }
 
+   /**
+    * Updates the playback tempo.
+    *
+    * If the controller is currently playing, it stops and immediately restarts
+    * with the new BPM so the interval length takes effect without delay.
+    *
+    * @param bpm - New tempo in beats per minute.
+    */
    public setBPM(bpm: number): void {
       this.currentBPM = bpm;
 
