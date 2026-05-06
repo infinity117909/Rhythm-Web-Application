@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as OSMD from "opensheetmusicdisplay";
 const { OpenSheetMusicDisplay, CursorType, MusicSheetReader } = OSMD;
 import { BPMCursorController } from "../../lib/BPMCursorController";
@@ -39,7 +39,7 @@ async function loadAndRender(
    return new BPMCursorController(osmd, sheet);
 }
 
-export function LoadMusicXMLShort({ music }) {
+export function LoadMusicXMLShort({ music }: { music: string | Document }) {
    const osmdContainerRef = useRef<HTMLDivElement | null>(null);
    const osmdRef = useRef<OSMD.OpenSheetMusicDisplay | null>(null);
 

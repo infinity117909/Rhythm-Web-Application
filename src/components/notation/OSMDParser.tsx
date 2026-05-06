@@ -1,5 +1,5 @@
 // Delete when certain I can!  
-import React, { useEffect, useRef, useState } from "react";  
+import { useEffect, useRef, useState } from "react";  
 import * as OSMD from "opensheetmusicdisplay";  
 const { OpenSheetMusicDisplay, CursorType, MusicSheetReader } = OSMD;  
 import { BPMCursorController } from "../../lib/BPMCursorController";  

@@ -10,7 +10,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-MD_FILE = r"d:\Rhythm_Application\app\docs\PROJECT_DOCUMENTATION.md"
+MD_FILE = r"d:\Rhythm_Application\app\docs\DOCUMENTED_FILES_SECTION_203_890_GOOGLEDOCS.md"
 DOCX_FILE = r"d:\Rhythm_Application\app\docs\PROJECT_DOCUMENTATION.docx"
 
 
